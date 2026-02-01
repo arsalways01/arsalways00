@@ -3,890 +3,511 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arsalways - Image to HTML Converter</title>
+    <title>Arsalways Control Panel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #00ff88;
-            --secondary: #0099ff;
-            --dark: #0a0a0a;
-            --darker: #050505;
-            --light: #f0f0f0;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
         body {
-            background: var(--darker);
-            color: var(--light);
+            background: linear-gradient(135deg, #0c0c0c, #1a1a2e);
+            color: #f1f1f1;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             padding: 20px;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 255, 136, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(0, 153, 255, 0.05) 0%, transparent 20%);
+            overflow-x: hidden;
         }
-
-        .container {
-            max-width: 1200px;
-            width: 100%;
-            background: rgba(15, 15, 20, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 0 50px rgba(0, 255, 136, 0.3);
-            border: 3px solid var(--primary);
-            backdrop-filter: blur(10px);
-        }
-
-        /* HEADER WITH LOGO */
         .header {
             text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 25px;
-            border-bottom: 3px solid var(--primary);
-            position: relative;
+            margin-bottom: 30px;
         }
-
-        .logo-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .logo-circle {
+        .logo {
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(45deg, #ff0080, #00ffcc);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
-            border: 5px solid white;
-            box-shadow: 
-                0 0 30px var(--primary),
-                inset 0 0 20px rgba(255, 255, 255, 0.3);
-            position: relative;
-            overflow: hidden;
+            margin: 0 auto 15px;
+            box-shadow: 0 0 25px #ff0080aa;
+            animation: glow 2s infinite alternate;
         }
-
-        .logo-circle::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, transparent 60%, rgba(0, 255, 136, 0.2) 100%);
+        @keyframes glow {
+            0% { box-shadow: 0 0 25px #ff0080aa; }
+            100% { box-shadow: 0 0 35px #00ffccaa; }
         }
-
-        .logo-circle .logo-text {
+        .logo i {
             font-size: 70px;
-            font-weight: 900;
-            color: black;
-            text-shadow: 2px 2px 0 white;
-            z-index: 2;
+            color: white;
         }
-
-        .site-title {
-            font-size: 3.5em;
+        .nama {
+            font-size: 2.8rem;
             font-weight: 900;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+            background: linear-gradient(90deg, #ff0080, #00ffcc);
             -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 10px;
+            -webkit-text-fill-color: transparent;
             letter-spacing: 2px;
-            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-        }
-
-        .site-subtitle {
-            color: #88ffcc;
-            font-size: 1.2em;
             margin-bottom: 5px;
         }
-
-        /* MAIN CONTENT */
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
+        .tagline {
+            color: #aaa;
+            font-size: 0.9rem;
             margin-bottom: 30px;
         }
-
-        @media (max-width: 768px) {
-            .main-content {
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: rgba(30, 30, 46, 0.9);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+        }
+        .input-group {
+            margin-bottom: 25px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #00ffcc;
+            font-weight: 600;
+        }
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid #444;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+            resize: vertical;
+        }
+        .input-group textarea {
+            min-height: 130px;
+            font-family: monospace;
+            line-height: 1.4;
+        }
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: #00ffcc;
+            box-shadow: 0 0 10px #00ffcc33;
+        }
+        .fitur-title {
+            color: #ff0080;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        .fitur-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        @media (max-width: 600px) {
+            .fitur-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 400px) {
+            .fitur-container {
                 grid-template-columns: 1fr;
             }
         }
-
-        /* UPLOAD SECTION */
-        .upload-section, .result-section {
-            background: rgba(10, 15, 20, 0.8);
-            border-radius: 15px;
-            padding: 25px;
-            border: 2px solid rgba(0, 255, 136, 0.3);
-        }
-
-        .section-title {
-            font-size: 1.8em;
-            color: var(--primary);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-bottom: 2px solid rgba(0, 255, 136, 0.3);
-            padding-bottom: 10px;
-        }
-
-        .upload-area {
-            border: 3px dashed var(--primary);
-            border-radius: 12px;
-            padding: 40px 20px;
+        .fitur-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #444;
+            border-radius: 10px;
+            padding: 16px 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #ccc;
             text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-bottom: 25px;
-            background: rgba(0, 255, 136, 0.05);
+            font-weight: 600;
+            user-select: none;
+            font-size: 0.9rem;
         }
-
-        .upload-area:hover {
-            background: rgba(0, 255, 136, 0.1);
-            border-color: #88ffcc;
-            transform: translateY(-5px);
+        .fitur-btn:hover {
+            background: rgba(255, 0, 128, 0.1);
+            border-color: #ff0080;
         }
-
-        .upload-area i {
-            font-size: 70px;
-            color: var(--primary);
-            margin-bottom: 15px;
+        .fitur-btn.active {
+            background: rgba(255, 0, 128, 0.25);
+            border-color: #ff0080;
+            color: #ff0080;
+            box-shadow: 0 0 15px #ff008055;
         }
-
-        .upload-area h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            color: #88ffcc;
-        }
-
-        .upload-area p {
-            color: #aaffdd;
-            font-size: 0.9em;
-        }
-
-        #fileInput {
-            display: none;
-        }
-
-        .image-preview {
-            width: 100%;
-            max-height: 300px;
-            border-radius: 10px;
-            border: 2px solid var(--primary);
-            display: none;
+        .text-desc {
             margin-top: 20px;
-        }
-
-        .controls {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 25px;
-        }
-
-        .btn {
-            padding: 14px 25px;
-            border: none;
+            padding: 15px;
+            background: rgba(0, 255, 204, 0.05);
             border-radius: 10px;
-            font-size: 1.1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex: 1;
-            justify-content: center;
-            min-width: 180px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: black;
-            font-weight: 800;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.6);
-        }
-
-        .btn-secondary {
-            background: rgba(0, 255, 136, 0.1);
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(0, 255, 136, 0.2);
-            transform: translateY(-5px);
-        }
-
-        /* RESULT SECTION */
-        .code-container {
-            position: relative;
-            margin-top: 20px;
-        }
-
-        .code-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0, 20, 15, 0.8);
-            padding: 12px 20px;
-            border-radius: 10px 10px 0 0;
-            border: 2px solid var(--primary);
-            border-bottom: none;
-        }
-
-        .code-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .action-btn {
-            background: rgba(0, 255, 136, 0.2);
-            color: var(--primary);
-            border: 1px solid var(--primary);
-            padding: 8px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9em;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.3s;
-        }
-
-        .action-btn:hover {
-            background: rgba(0, 255, 136, 0.3);
-            transform: translateY(-2px);
-        }
-
-        #codeOutput {
-            width: 100%;
-            height: 400px;
-            background: #000;
-            color: #00ff00;
-            font-family: 'Courier New', monospace;
-            padding: 20px;
-            border-radius: 0 0 10px 10px;
-            border: 2px solid var(--primary);
-            overflow: auto;
-            white-space: pre-wrap;
-            font-size: 0.95em;
+            border-left: 4px solid #00ffcc;
+            font-size: 0.95rem;
             line-height: 1.5;
-            resize: vertical;
-            min-height: 200px;
+            color: #aaddff;
+            min-height: 85px;
         }
-
-        /* PREVIEW IMAGE */
-        .preview-container {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .preview-title {
-            color: #88ffcc;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        #previewImage {
-            max-width: 100%;
-            max-height: 250px;
-            border-radius: 10px;
-            border: 3px solid var(--primary);
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
-        }
-
-        /* NOTIFICATION */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: 10px;
-            color: white;
-            font-weight: bold;
-            z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            display: none;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        .notification.success {
-            background: linear-gradient(to right, #00b894, #00cec9);
-            border-left: 5px solid var(--primary);
-        }
-
-        .notification.error {
-            background: linear-gradient(to right, #d63031, #e17055);
-            border-left: 5px solid #ff3838;
-        }
-
-        /* FOOTER */
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 2px solid rgba(0, 255, 136, 0.3);
-            color: #88ffcc;
-            font-size: 0.9em;
-        }
-
-        .footer a {
-            color: var(--primary);
-            text-decoration: none;
+        .text-desc .lag {
+            color: #ffcc00;
             font-weight: bold;
         }
-
-        .footer a:hover {
-            text-decoration: underline;
+        .text-desc .crash {
+            color: #ff5555;
+            font-weight: bold;
         }
-
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            background: rgba(0, 255, 136, 0.1);
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: 1px solid rgba(0, 255, 136, 0.3);
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <div class="logo-container">
-                <div class="logo-circle">
-                    <div class="logo-text">A</div>
-                </div>
-                <h1 class="site-title">ARSALWAYS CONVERTER</h1>
-                <p class="site-subtitle">Convert Image to HTML/CSS Code Instantly</p>
-                <p class="site-subtitle">Upload, Convert, Copy & Download</p>
-            </div>
-        </div>
-
-        <div class="main-content">
-            <!-- UPLOAD SECTION -->
-            <div class="upload-section">
-                <h2 class="section-title"><i class="fas fa-upload"></i> Upload Image</h2>
-                
-                <div class="upload-area" id="uploadArea">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <h3>Click or Drag & Drop Image</h3>
-                    <p>Supported: JPG, PNG, GIF, WEBP (Max 10MB)</p>
-                    <p style="margin-top: 10px; font-size: 0.8em; color: #aaffdd;">
-                        <i class="fas fa-info-circle"></i> Works like rdx.free.nf - Real conversion
-                    </p>
-                </div>
-                <input type="file" id="fileInput" accept="image/*">
-                
-                <div class="preview-container">
-                    <h3 class="preview-title"><i class="fas fa-image"></i> Preview</h3>
-                    <img id="previewImage" class="image-preview" alt="Image Preview">
-                </div>
-
-                <div class="controls">
-                    <button class="btn btn-primary" id="convertBtn">
-                        <i class="fas fa-code"></i> Convert to Code
-                    </button>
-                    <button class="btn btn-secondary" id="clearBtn">
-                        <i class="fas fa-trash"></i> Clear All
-                    </button>
-                </div>
-            </div>
-
-            <!-- RESULT SECTION -->
-            <div class="result-section">
-                <h2 class="section-title"><i class="fas fa-file-code"></i> Generated Code</h2>
-                
-                <div class="code-container">
-                    <div class="code-header">
-                        <span style="color: var(--primary); font-weight: bold;">
-                            <i class="fas fa-code"></i> HTML/CSS Code
-                        </span>
-                        <div class="code-actions">
-                            <button class="action-btn" id="copyBtn" title="Copy Code">
-                                <i class="fas fa-copy"></i> Copy
-                            </button>
-                            <button class="action-btn" id="downloadBtn" title="Download Code">
-                                <i class="fas fa-download"></i> Download
-                            </button>
-                        </div>
-                    </div>
-                    <pre id="codeOutput">// Your generated code will appear here
-// 1. Upload an image
-// 2. Click "Convert to Code"
-// 3. Copy or download the result</pre>
-                </div>
-
-                <div style="margin-top: 25px;">
-                    <h3 class="section-title" style="font-size: 1.4em;">
-                        <i class="fas fa-lightbulb"></i> Features
-                    </h3>
-                    <ul style="color: #aaffdd; padding-left: 20px; line-height: 1.8;">
-                        <li>Real image to HTML/CSS conversion (not simulation)</li>
-                        <li>Copy code to clipboard with one click</li>
-                        <li>Download code as .html file</li>
-                        <li>Live image preview</li>
-                        <li>Drag & drop support</li>
-                        <li>Mobile responsive</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer">
-            <p>
-                <i class="fas fa-code"></i> Created by <strong>Arsalways AI</strong> | 
-                <a href="https://wa.me/6287792563861" target="_blank"><i class="fas fa-phone"></i> Contact</a> | 
-                <a href="#" id="refreshPage"><i class="fas fa-sync"></i> Refresh</a>
-            </p>
-            
-            <div class="stats">
-                <div class="stat-item">
-                    <i class="fas fa-bolt"></i> Fast Conversion
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-shield-alt"></i> No Data Sent to Server
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-mobile-alt"></i> 100% Client-side
-                </div>
-            </div>
-            
-            <p style="margin-top: 15px; font-size: 0.8em; color: #66cc99;">
-                &copy; 2024 Arsalways Image Converter v3.0 | Works exactly like rdx.free.nf
-            </p>
-        </div>
-    </div>
-
-    <!-- NOTIFICATION -->
-    <div id="notification" class="notification"></div>
-
-    <script>
-        // DOM Elements
-        const uploadArea = document.getElementById('uploadArea');
-        const fileInput = document.getElementById('fileInput');
-        const convertBtn = document.getElementById('convertBtn');
-        const clearBtn = document.getElementById('clearBtn');
-        const copyBtn = document.getElementById('copyBtn');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const previewImage = document.getElementById('previewImage');
-        const codeOutput = document.getElementById('codeOutput');
-        const notification = document.getElementById('notification');
-        const refreshPage = document.getElementById('refreshPage');
-
-        let currentImage = null;
-        let imageDataUrl = '';
-
-        // Show notification
-        function showNotification(message, type = 'success') {
-            notification.textContent = message;
-            notification.className = `notification ${type}`;
-            notification.style.display = 'block';
-            
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 4000);
-        }
-
-        // Handle file upload
-        uploadArea.addEventListener('click', () => fileInput.click());
-
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadArea.style.borderColor = '#88ffcc';
-            uploadArea.style.background = 'rgba(0, 255, 136, 0.15)';
-        });
-
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.style.borderColor = 'var(--primary)';
-            uploadArea.style.background = 'rgba(0, 255, 136, 0.05)';
-        });
-
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.style.borderColor = 'var(--primary)';
-            uploadArea.style.background = 'rgba(0, 255, 136, 0.05)';
-            
-            if (e.dataTransfer.files.length) {
-                handleImageFile(e.dataTransfer.files[0]);
-            }
-        });
-
-        fileInput.addEventListener('change', (e) => {
-            if (e.target.files.length) {
-                handleImageFile(e.target.files[0]);
-            }
-        });
-
-        function handleImageFile(file) {
-            // Validate file type
-            if (!file.type.match('image.*')) {
-                showNotification('Only image files are allowed!', 'error');
-                return;
-            }
-
-            // Validate file size (10MB max)
-            if (file.size > 10 * 1024 * 1024) {
-                showNotification('File size must be less than 10MB!', 'error');
-                return;
-            }
-
-            currentImage = file;
-            
-            // Show preview
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                imageDataUrl = e.target.result;
-                previewImage.src = imageDataUrl;
-                previewImage.style.display = 'block';
-                
-                // Update upload area
-                uploadArea.innerHTML = `
-                    <i class="fas fa-check-circle" style="color:#00ff88;"></i>
-                    <h3>${file.name}</h3>
-                    <p>${(file.size / 1024).toFixed(2)} KB | Ready to convert</p>
-                `;
-                
-                showNotification('Image loaded successfully!', 'success');
-            };
-            reader.readAsDataURL(file);
-        }
-
-        // Convert image to code
-        convertBtn.addEventListener('click', () => {
-            if (!currentImage) {
-                showNotification('Please upload an image first!', 'error');
-                return;
-            }
-
-            // Show converting message
-            codeOutput.textContent = 'Converting image to HTML/CSS code...\nPlease wait...';
-            
-            // Simulate conversion process
-            setTimeout(() => {
-                generateHTMLCode();
-            }, 500);
-        });
-
-        function generateHTMLCode() {
-            const fileName = currentImage.name;
-            const fileSize = (currentImage.size / 1024).toFixed(2);
-            const fileType = currentImage.type;
-            const timestamp = new Date().toLocaleString();
-            
-            // Generate actual HTML/CSS code based on image
-            const htmlCode = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image: ${fileName} | Arsalways Converter</title>
-    <style>
-        /* 
-         * ARSALWAYS IMAGE TO HTML CONVERTER
-         * Generated: ${timestamp}
-         * Source: ${fileName}
-         * File Size: ${fileSize} KB
-         * Type: ${fileType}
-         */
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
-            color: #00ff88;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 900px;
-            width: 100%;
-            background: rgba(15, 20, 25, 0.9);
-            border-radius: 20px;
-            padding: 30px;
-            border: 3px solid #00ff88;
-            box-shadow: 0 0 40px rgba(0, 255, 136, 0.3);
-        }
-        
-        .header {
+        .pilih-fitur-label {
+            background: rgba(255, 0, 128, 0.1);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
             text-align: center;
+            font-weight: bold;
+            color: #ff0080;
+            border: 1px dashed #ff0080;
+            font-size: 1.1rem;
+        }
+        .slider-group {
             margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #00ff88;
         }
-        
-        .header h1 {
-            font-size: 2.5em;
-            background: linear-gradient(to right, #00ff88, #0099ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        .slider-group label {
+            display: block;
             margin-bottom: 10px;
+            color: #00ffcc;
+            font-weight: 600;
         }
-        
-        .image-container {
-            width: 100%;
-            margin: 25px 0;
-            text-align: center;
-        }
-        
-        .converted-image {
-            max-width: 100%;
-            max-height: 500px;
-            border-radius: 15px;
-            border: 4px solid #00ff88;
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
-        }
-        
-        .image-info {
-            background: rgba(0, 30, 20, 0.7);
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 25px;
-            border-left: 5px solid #00ff88;
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        .slider-container {
+            display: flex;
+            align-items: center;
             gap: 15px;
+        }
+        .slider-value {
+            font-weight: 900;
+            font-size: 2rem;
+            color: #ff0080;
+            min-width: 90px;
+            text-align: center;
+            text-shadow: 0 0 10px #ff0080aa;
+        }
+        .slider {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 14px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #00ffcc, #ff0080, #ff0000);
+            outline: none;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            box-shadow: 0 0 15px black;
+            border: 3px solid #ff0080;
+            transition: 0.2s;
+        }
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            border-color: #00ffcc;
+        }
+        .kirim-btn {
+            width: 100%;
+            padding: 22px;
+            background: linear-gradient(90deg, #ff0080, #ff3333, #ff0000);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.3s;
+            letter-spacing: 2px;
+            margin-top: 10px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        .kirim-btn:hover {
+            background: linear-gradient(90deg, #ff3333, #ff0000, #cc0000);
+            box-shadow: 0 0 35px #ff5555aa;
+            transform: translateY(-5px);
+        }
+        .kirim-btn:active {
+            transform: translateY(0);
+        }
+        .footer {
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 10px;
+        }
+        .warning {
+            color: #ffcc00;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        .custom-input {
+            display: none;
             margin-top: 15px;
         }
-        
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px dashed rgba(0, 255, 136, 0.3);
-        }
-        
-        .pixel-display {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(25px, 1fr));
-            gap: 3px;
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
+        .info-box {
+            background: rgba(255, 0, 128, 0.08);
+            border: 1px solid #ff0080;
             border-radius: 10px;
+            padding: 12px;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #ffaaaa;
         }
-        
-        .pixel {
-            aspect-ratio: 1;
-            background: #00ff88;
-            border-radius: 2px;
-            opacity: 0.7;
-        }
-        
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            color: #88ffcc;
-            font-size: 0.9em;
-            padding-top: 20px;
-            border-top: 1px solid rgba(0, 255, 136, 0.3);
+        .url-preview {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 0.8rem;
+            word-break: break-all;
+            color: #aaddff;
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1><i class="fas fa-image"></i> Converted Image</h1>
-            <p>Generated by Arsalways Image to HTML Converter</p>
+    <div class="header">
+        <div class="logo">
+            <i class="fas fa-bolt"></i>
         </div>
-        
-        <div class="image-container">
-            <img src="${imageDataUrl}" alt="Converted Image" class="converted-image">
-        </div>
-        
-        <div class="image-info">
-            <h2><i class="fas fa-info-circle"></i> Image Information</h2>
-            <div class="info-grid">
-                <div class="info-item">
-                    <span>File Name:</span>
-                    <span style="color:#88ffcc;">${fileName}</span>
-                </div>
-                <div class="info-item">
-                    <span>File Size:</span>
-                    <span style="color:#88ffcc;">${fileSize} KB</span>
-                </div>
-                <div class="info-item">
-                    <span>File Type:</span>
-                    <span style="color:#88ffcc;">${fileType}</span>
-                </div>
-                <div class="info-item">
-                    <span>Generation Date:</span>
-                    <span style="color:#88ffcc;">${timestamp}</span>
-                </div>
-                <div class="info-item">
-                    <span>Converter:</span>
-                    <span style="color:#00ff88; font-weight:bold;">Arsalways v3.0</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="image-info">
-            <h2><i class="fas fa-th"></i> Pixel Representation</h2>
-            <div class="pixel-display" id="pixelDisplay">
-                <!-- Pixel grid will be generated by JavaScript -->
-            </div>
-        </div>
-        
-        <div class="footer">
-            <p><i class="fas fa-code"></i> This HTML file was automatically generated from your image.</p>
-            <p>Created with <i class="fas fa-heart" style="color:#ff0066;"></i> by Arsalways AI</p>
-        </div>
+        <div class="nama">Arsalways</div>
+        <div class="tagline">ULTIMATE WhatsApp Spam Engine</div>
     </div>
-    
+
+    <div class="container">
+        <div class="input-group">
+            <label for="nomor"><i class="fas fa-phone-alt"></i> Nomor Target WhatsApp (contoh: 81234567890)</label>
+            <input type="text" id="nomor" placeholder="81234567890 (tanpa +62)">
+            <div class="warning">Masukkan tanpa +62. Contoh: 81234567890</div>
+        </div>
+
+        <div class="fitur-title">PILIH METODE SPAM:</div>
+        <div class="fitur-container">
+            <div class="fitur-btn" data-fitur="spam1">🔥 SPAM ACAK 1</div>
+            <div class="fitur-btn" data-fitur="spam2">💀 SPAM ACAK 2</div>
+            <div class="fitur-btn" data-fitur="spam3">👹 SPAM ACAK 3</div>
+            <div class="fitur-btn" data-fitur="spam4">🤖 SPAM ACAK 4</div>
+            <div class="fitur-btn" data-fitur="spam5">☠️ SPAM ACAK 5</div>
+            <div class="fitur-btn" data-fitur="custom">✏️ CUSTOM MODE</div>
+        </div>
+
+        <div class="pilih-fitur-label" id="label-fitur">Pilih Fitur → belum dipilih</div>
+
+        <div class="text-desc" id="text-desc">
+            Pilih fitur di atas untuk mengaktifkan spam acak. Semakin tinggi slider, semakin banyak spam yang dikirim.
+        </div>
+
+        <div class="input-group custom-input" id="custom-input">
+            <label for="custom-text"><i class="fas fa-edit"></i> Masukkan Teks Spam Custom:</label>
+            <textarea id="custom-text" placeholder="Tulis teks spam custom disini..."></textarea>
+        </div>
+
+        <div class="slider-group">
+            <label for="slider"><i class="fas fa-sliders-h"></i> JUMLAH SPAM: <span id="slider-value">1000</span>x</label>
+            <div class="slider-container">
+                <div class="slider-value" id="value-box">1000</div>
+                <input type="range" min="10" max="200000" value="1000" class="slider" id="slider">
+            </div>
+            <div class="warning">Slider: 10-200000. Semakin tinggi, spam semakin banyak!</div>
+        </div>
+
+        <div class="info-box">
+            <i class="fas fa-exclamation-triangle"></i> SPAM AKAN DIGANDAKAN SESUAI NILAI SLIDER. Contoh: slider 1000 = spam 1000x lipat.
+        </div>
+
+        <div class="url-preview" id="url-preview">
+            <strong>Preview URL WhatsApp:</strong><br>
+            <span id="url-text">https://wa.me/62XXXXXXXXXX?text=Spam+akan+muncul+disini...</span>
+        </div>
+
+        <button class="kirim-btn" id="kirim">
+            <i class="fab fa-whatsapp"></i> BUKA WHATSAPP DENGAN SPAM
+        </button>
+    </div>
+
+    <div class="footer">
+        ©2026 Arsalways Dark Engine | Spam acak sesuai pengaturan slider.
+    </div>
+
     <script>
-        // Generate pixel grid
-        const pixelDisplay = document.getElementById('pixelDisplay');
-        for (let i = 0; i < 200; i++) {
-            const pixel = document.createElement('div');
-            pixel.className = 'pixel';
-            pixel.style.opacity = Math.random() * 0.5 + 0.3;
-            pixelDisplay.appendChild(pixel);
-        }
-        
-        console.log('Image successfully converted by Arsalways Converter');
-        alert('Image loaded successfully!');
-    </script>
-</body>
-</html>`;
-
-            codeOutput.textContent = htmlCode;
-            showNotification('Conversion complete! HTML/CSS code generated.', 'success');
+        // Fungsi generate text acak
+        function generateRandomSpam() {
+            const chars = 'ḁ̊j̥̊j̥̊j̤̮w̤̮j̤̮w̤̮s̤̮s̥̊h̥̊h̥̊e̥̊a͜͡y͜͡w͜͡b̥̊s̥̊ [̲̅j][̲̅a][̅⃟ h⃟ y⃟ a⃟ y⃟ u⃟ u⃠a⃠h⃠s⃠e⃠j⃠ w⃟ s⃟ a⃟ h⃟ h⃟ s⃟h⃤a⃤h⃤w⃤h⃤s⃤ a⃟ u⃟ h⃟ e⃟ j⃤a⃤w⃤s⃤h⃤ e⃟ h⃢ a⃢ 🅰🆄🆄🆆b⃢ w⃢ j⃢ s⃢ a⃢ j⃟ s⃟ ][̲̅w][̲̅j][̲̅j][̲̅s][̲̅h]';
+            const parts = chars.split(' ');
+            let result = '';
+            const length = Math.floor(Math.random() * 10) + 5;
+            
+            for (let i = 0; i < length; i++) {
+                result += parts[Math.floor(Math.random() * parts.length)] + ' ';
+            }
+            
+            return result.trim();
         }
 
-        // Copy code to clipboard
-        copyBtn.addEventListener('click', () => {
-            if (!codeOutput.textContent || codeOutput.textContent.includes('Your generated code')) {
-                showNotification('No code to copy! Convert an image first.', 'error');
-                return;
-            }
-
-            navigator.clipboard.writeText(codeOutput.textContent)
-                .then(() => {
-                    showNotification('Code copied to clipboard!', 'success');
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                    setTimeout(() => {
-                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy';
-                    }, 2000);
-                })
-                .catch(err => {
-                    console.error('Copy failed:', err);
-                    showNotification('Failed to copy code!', 'error');
-                });
-        });
-
-        // Download code as HTML file
-        downloadBtn.addEventListener('click', () => {
-            if (!codeOutput.textContent || codeOutput.textContent.includes('Your generated code')) {
-                showNotification('No code to download! Convert an image first.', 'error');
-                return;
-            }
-
-            const blob = new Blob([codeOutput.textContent], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `converted-image-${Date.now()}.html`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            showNotification('Code downloaded as HTML file!', 'success');
-            downloadBtn.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
-            setTimeout(() => {
-                downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download';
-            }, 2000);
-        });
-
-        // Clear all
-        clearBtn.addEventListener('click', () => {
-            currentImage = null;
-            imageDataUrl = '';
-            fileInput.value = '';
-            previewImage.src = '';
-            previewImage.style.display = 'none';
-            codeOutput.textContent = `// Your generated code will appear here
-// 1. Upload an image
-// 2. Click "Convert to Code"
-// 3. Copy or download the result`;
-            
-            uploadArea.innerHTML = `
-                <i class="fas fa-cloud-upload-alt"></i>
-                <h3>Click or Drag & Drop Image</h3>
-                <p>Supported: JPG, PNG, GIF, WEBP (Max 10MB)</p>
-                <p style="margin-top: 10px; font-size: 0.8em; color: #aaffdd;">
-                    <i class="fas fa-info-circle"></i> Works like rdx.free.nf - Real conversion
-                </p>
-            `;
-            
-            showNotification('All data cleared!', 'success');
-        });
-
-        // Refresh page
-        refreshPage.addEventListener('click', (e) => {
-            e.preventDefault();
-            location.reload();
-        });
-
-        // Initialize
-        window.onload = () => {
-            showNotification('Welcome to Arsalways Image Converter! Upload an image to start.', 'success');
+        // Data fitur
+        const fiturData = {
+            spam1: { name: "🔥 SPAM ACAK 1" },
+            spam2: { name: "💀 SPAM ACAK 2" },
+            spam3: { name: "👹 SPAM ACAK 3" },
+            spam4: { name: "🤖 SPAM ACAK 4" },
+            spam5: { name: "☠️ SPAM ACAK 5" },
+            custom: { name: "✏️ CUSTOM MODE" }
         };
+
+        let fiturAktif = null;
+        const semuaTombol = document.querySelectorAll('.fitur-btn');
+        const labelFitur = document.getElementById('label-fitur');
+        const textDesc = document.getElementById('text-desc');
+        const slider = document.getElementById('slider');
+        const sliderValue = document.getElementById('slider-value');
+        const valueBox = document.getElementById('value-box');
+        const nomorInput = document.getElementById('nomor');
+        const kirimBtn = document.getElementById('kirim');
+        const customInput = document.getElementById('custom-input');
+        const customText = document.getElementById('custom-text');
+        const urlPreview = document.getElementById('url-preview');
+        const urlText = document.getElementById('url-text');
+
+        // Update URL preview
+        function updateUrlPreview() {
+            const nomor = nomorInput.value.trim();
+            if (!nomor || !fiturAktif) {
+                urlPreview.style.display = 'none';
+                return;
+            }
+
+            // Generate payload sementara untuk preview
+            let payload = "";
+            if (fiturAktif === 'custom') {
+                payload = customText.value.trim().substring(0, 50) + '...';
+            } else {
+                payload = generateRandomSpam().substring(0, 50) + '...';
+            }
+
+            const multiplier = parseInt(slider.value);
+            const encodedPayload = encodeURIComponent(payload);
+            
+            // Format: https://wa.me/62XXXXXXXXXX?text=SPAM_TEXT
+            const previewUrl = `https://wa.me/62${nomor}?text=${encodedPayload}`;
+            urlText.textContent = previewUrl;
+            urlPreview.style.display = 'block';
+        }
+
+        // Handler klik fitur
+        semuaTombol.forEach(btn => {
+            btn.addEventListener('click', function() {
+                semuaTombol.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                fiturAktif = this.getAttribute('data-fitur');
+                const data = fiturData[fiturAktif];
+                labelFitur.innerHTML = `<i class="fas fa-check"></i> Fitur Aktif: <strong>${data.name}</strong>`;
+                
+                if (fiturAktif === 'custom') {
+                    textDesc.innerHTML = `Gunakan textarea di bawah untuk menulis spam custom.`;
+                    customInput.style.display = 'block';
+                } else {
+                    textDesc.innerHTML = `Spam acak akan digenerate dengan karakter khusus. Slider menentukan jumlah pengulangan.`;
+                    customInput.style.display = 'none';
+                }
+                
+                updateUrlPreview();
+            });
+        });
+
+        // Handler slider
+        slider.addEventListener('input', function() {
+            const val = this.value;
+            sliderValue.textContent = val;
+            valueBox.textContent = val;
+            updateUrlPreview();
+        });
+
+        // Handler input nomor
+        nomorInput.addEventListener('input', updateUrlPreview);
+
+        // Handler custom text
+        customText.addEventListener('input', updateUrlPreview);
+
+        // Handler kirim
+        kirimBtn.addEventListener('click', function() {
+            const nomor = nomorInput.value.trim();
+            if (!nomor) {
+                alert("MASUKIN NOMOR TARGET DULU!");
+                nomorInput.focus();
+                return;
+            }
+            if (!fiturAktif) {
+                alert("PILIH FITUR DULU!");
+                return;
+            }
+
+            const multiplier = parseInt(slider.value);
+            
+            // Generate payload sesuai fitur
+            let payload = "";
+            
+            if (fiturAktif === 'custom') {
+                payload = customText.value.trim();
+                if (!payload) {
+                    alert("ISI TEKS CUSTOM DULU!");
+                    customText.focus();
+                    return;
+                }
+            } else {
+                payload = generateRandomSpam();
+            }
+
+            // KALI lipat sesuai slider
+            const repeatCount = Math.floor(multiplier / 100);
+            const finalPayload = payload.repeat(Math.max(1, repeatCount));
+
+            // Batasi maksimal 50.000 karakter
+            let finalPayloadTrimmed = finalPayload;
+            if (finalPayload.length > 50000) {
+                finalPayloadTrimmed = finalPayload.substring(0, 50000);
+            }
+
+            // Format URL WhatsApp: https://wa.me/62XXXXXXXXXX?text=SPAM_TEXT
+            const encodedText = encodeURIComponent(finalPayloadTrimmed);
+            const waUrl = `https://wa.me/62${nomor}?text=${encodedText}`;
+            
+            // Update tombol
+            this.innerHTML = `<i class="fas fa-external-link-alt"></i> MEMBUKA WHATSAPP...`;
+            this.disabled = true;
+
+            // Delay lalu buka WhatsApp
+            setTimeout(() => {
+                window.open(waUrl, '_blank');
+                this.innerHTML = `<i class="fab fa-whatsapp"></i> WHATSAPP TERBUKA!`;
+                this.style.background = "linear-gradient(90deg, #00ff80, #00ccff)";
+                
+                // Reset tombol
+                setTimeout(() => {
+                    this.innerHTML = `<i class="fab fa-whatsapp"></i> BUKA WHATSAPP DENGAN SPAM`;
+                    this.disabled = false;
+                    this.style.background = "linear-gradient(90deg, #ff0080, #ff3333, #ff0000)";
+                }, 3000);
+            }, 1000);
+        });
+
+        // Pilih fitur pertama
+        document.querySelector('.fitur-btn').click();
     </script>
 </body>
 </html>
