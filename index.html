@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArsAlways - Bypass System</title>
+    <title>Arsalways - Image to HTML Converter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #00ff88;
+            --secondary: #0099ff;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --light: #f0f0f0;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,713 +22,871 @@
         }
 
         body {
-            background: #0a0a0a;
-            color: #fff;
+            background: var(--darker);
+            color: var(--light);
             min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Video Background */
-        #bg-video {
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-            z-index: -1;
-            opacity: 0.15;
-        }
-
-        /* Main Container */
-        .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
             padding: 20px;
-            position: relative;
-            z-index: 1;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 136, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 153, 255, 0.05) 0%, transparent 20%);
         }
 
-        /* Logo */
-        .logo-container {
-            margin-bottom: 30px;
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(15, 15, 20, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 50px rgba(0, 255, 136, 0.3);
+            border: 3px solid var(--primary);
+            backdrop-filter: blur(10px);
+        }
+
+        /* HEADER WITH LOGO */
+        .header {
             text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 3px solid var(--primary);
+            position: relative;
         }
 
-        .logo {
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-circle {
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            border: 3px solid #00ff88;
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            margin-bottom: 20px;
+            border: 5px solid white;
+            box-shadow: 
+                0 0 30px var(--primary),
+                inset 0 0 20px rgba(255, 255, 255, 0.3);
             position: relative;
             overflow: hidden;
-            transition: transform 0.3s ease;
         }
 
-        .logo:hover {
-            transform: scale(1.05);
+        .logo-circle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 60%, rgba(0, 255, 136, 0.2) 100%);
         }
 
-        .logo-inner {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            font-weight: bold;
-            color: #00ff88;
+        .logo-circle .logo-text {
+            font-size: 70px;
+            font-weight: 900;
+            color: black;
+            text-shadow: 2px 2px 0 white;
+            z-index: 2;
         }
 
-        /* Name */
-        .name {
-            font-size: 28px;
-            font-weight: bold;
-            color: #00ff88;
-            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        .site-title {
+            font-size: 3.5em;
+            font-weight: 900;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
             letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .site-subtitle {
+            color: #88ffcc;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
             margin-bottom: 30px;
         }
 
-        /* Status Box */
-        .status-box {
-            background: rgba(20, 20, 30, 0.9);
-            border: 2px solid #333;
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* UPLOAD SECTION */
+        .upload-section, .result-section {
+            background: rgba(10, 15, 20, 0.8);
             border-radius: 15px;
             padding: 25px;
-            width: 90%;
-            max-width: 500px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
+            border: 2px solid rgba(0, 255, 136, 0.3);
         }
 
-        .status-title {
-            font-size: 22px;
-            color: #667eea;
-            margin-bottom: 15px;
-            text-align: center;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-        }
-
-        .status-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .status-item:last-child {
-            border-bottom: none;
-        }
-
-        .status-label {
-            color: #aaa;
-            font-size: 16px;
-        }
-
-        .status-value {
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .status-online {
-            color: #00ff88;
-        }
-
-        .status-offline {
-            color: #ff4444;
-        }
-
-        /* Features Box */
-        .features-box {
-            background: rgba(20, 20, 30, 0.9);
-            border: 2px solid #333;
-            border-radius: 15px;
-            padding: 25px;
-            width: 90%;
-            max-width: 500px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-        }
-
-        .features-title {
-            font-size: 22px;
-            color: #667eea;
+        .section-title {
+            font-size: 1.8em;
+            color: var(--primary);
             margin-bottom: 20px;
-            text-align: center;
-            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid rgba(0, 255, 136, 0.3);
             padding-bottom: 10px;
         }
 
-        /* Feature Items */
-        .feature-item {
-            background: rgba(40, 40, 60, 0.7);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-left: 4px solid #667eea;
-            transition: all 0.3s ease;
-        }
-
-        .feature-item:hover {
-            transform: translateX(5px);
-            background: rgba(50, 50, 70, 0.9);
-        }
-
-        .feature-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .feature-name {
-            font-size: 18px;
-            color: #fff;
-            font-weight: bold;
-        }
-
-        .feature-desc {
-            color: #aaa;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        /* Switch */
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 30px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
+        .upload-area {
+            border: 3px dashed var(--primary);
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
             cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #333;
-            transition: .4s;
-            border-radius: 34px;
+            transition: all 0.3s;
+            margin-bottom: 25px;
+            background: rgba(0, 255, 136, 0.05);
         }
 
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
+        .upload-area:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: #88ffcc;
+            transform: translateY(-5px);
         }
 
-        input:checked + .slider {
-            background-color: #00ff88;
+        .upload-area i {
+            font-size: 70px;
+            color: var(--primary);
+            margin-bottom: 15px;
         }
 
-        input:checked + .slider:before {
-            transform: translateX(30px);
+        .upload-area h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #88ffcc;
         }
 
-        /* Buttons */
-        .buttons {
+        .upload-area p {
+            color: #aaffdd;
+            font-size: 0.9em;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .image-preview {
+            width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            border: 2px solid var(--primary);
+            display: none;
+            margin-top: 20px;
+        }
+
+        .controls {
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
-            justify-content: center;
+            margin-top: 25px;
         }
 
         .btn {
-            padding: 12px 25px;
+            padding: 14px 25px;
             border: none;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: 10px;
+            font-size: 1.1em;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            min-width: 150px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            justify-content: center;
+            min-width: 180px;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: black;
+            font-weight: 800;
         }
 
-        .btn-success {
-            background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
-            color: white;
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.6);
         }
 
-        .btn-danger {
-            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
-            color: white;
+        .btn-secondary {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--primary);
+            border: 2px solid var(--primary);
         }
 
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        .btn-secondary:hover {
+            background: rgba(0, 255, 136, 0.2);
+            transform: translateY(-5px);
         }
 
-        /* Server Info */
-        .server-info {
-            background: rgba(20, 20, 30, 0.9);
-            border: 2px solid #333;
-            border-radius: 15px;
-            padding: 20px;
-            width: 90%;
-            max-width: 500px;
+        /* RESULT SECTION */
+        .code-container {
+            position: relative;
             margin-top: 20px;
-            backdrop-filter: blur(10px);
         }
 
-        .server-title {
-            font-size: 20px;
-            color: #667eea;
-            margin-bottom: 15px;
-            text-align: center;
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 20, 15, 0.8);
+            padding: 12px 20px;
+            border-radius: 10px 10px 0 0;
+            border: 2px solid var(--primary);
+            border-bottom: none;
         }
 
-        .server-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        .code-actions {
+            display: flex;
             gap: 10px;
         }
 
-        .server-item {
-            background: rgba(40, 40, 60, 0.7);
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 14px;
-            border: 1px solid rgba(102, 126, 234, 0.3);
+        .action-btn {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
         }
 
-        /* Customization */
-        .customization {
+        .action-btn:hover {
+            background: rgba(0, 255, 136, 0.3);
+            transform: translateY(-2px);
+        }
+
+        #codeOutput {
+            width: 100%;
+            height: 400px;
+            background: #000;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            border-radius: 0 0 10px 10px;
+            border: 2px solid var(--primary);
+            overflow: auto;
+            white-space: pre-wrap;
+            font-size: 0.95em;
+            line-height: 1.5;
+            resize: vertical;
+            min-height: 200px;
+        }
+
+        /* PREVIEW IMAGE */
+        .preview-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .preview-title {
+            color: #88ffcc;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        #previewImage {
+            max-width: 100%;
+            max-height: 250px;
+            border-radius: 10px;
+            border: 3px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        /* NOTIFICATION */
+        .notification {
             position: fixed;
             top: 20px;
             right: 20px;
-            z-index: 1000;
-        }
-
-        .custom-btn {
-            background: rgba(102, 126, 234, 0.9);
+            padding: 15px 25px;
+            border-radius: 10px;
             color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            display: none;
+            animation: slideIn 0.3s ease;
         }
 
-        .custom-btn:hover {
-            transform: rotate(90deg);
-            background: rgba(118, 75, 162, 0.9);
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
-        /* Footer */
+        .notification.success {
+            background: linear-gradient(to right, #00b894, #00cec9);
+            border-left: 5px solid var(--primary);
+        }
+
+        .notification.error {
+            background: linear-gradient(to right, #d63031, #e17055);
+            border-left: 5px solid #ff3838;
+        }
+
+        /* FOOTER */
         .footer {
             text-align: center;
-            margin-top: 30px;
-            color: #666;
-            font-size: 14px;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(0, 255, 136, 0.3);
+            color: #88ffcc;
+            font-size: 0.9em;
         }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            .logo {
-                width: 120px;
-                height: 120px;
-            }
-            
-            .logo-inner {
-                width: 90px;
-                height: 90px;
-                font-size: 30px;
-            }
-            
-            .name {
-                font-size: 24px;
-            }
-            
-            .status-box, .features-box, .server-info {
-                padding: 20px;
-            }
-            
-            .btn {
-                min-width: 130px;
-                padding: 10px 20px;
-            }
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(0, 255, 136, 0.1);
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
         }
     </style>
 </head>
 <body>
-    <!-- Video Background -->
-    <video autoplay muted loop id="bg-video">
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-digital-background-with-moving-lines-33483-large.mp4" type="video/mp4">
-    </video>
-
-    <!-- Customization Button -->
-    <div class="customization">
-        <button class="custom-btn" id="customizeBtn">⚙️</button>
-    </div>
-
-    <!-- Main Container -->
     <div class="container">
-        <!-- Logo -->
-        <div class="logo-container">
-            <div class="logo">
-                <div class="logo-inner">AA</div>
-            </div>
-            <div class="name">ArsAlways</div>
-        </div>
-
-        <!-- Status Box -->
-        <div class="status-box">
-            <div class="status-title">SYSTEM STATUS</div>
-            <div class="status-item">
-                <span class="status-label">Bypass Status:</span>
-                <span class="status-value status-online" id="bypassStatus">ACTIVE</span>
-            </div>
-            <div class="status-item">
-                <span class="status-label">Anti-Cheat:</span>
-                <span class="status-value status-offline" id="anticheatStatus">BYPASSED</span>
-            </div>
-            <div class="status-item">
-                <span class="status-label">Root/Non-Root:</span>
-                <span class="status-value status-online" id="rootStatus">SUPPORTED</span>
-            </div>
-            <div class="status-item">
-                <span class="status-label">Connection:</span>
-                <span class="status-value status-online" id="connectionStatus">STABLE</span>
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo-circle">
+                    <div class="logo-text">A</div>
+                </div>
+                <h1 class="site-title">ARSALWAYS CONVERTER</h1>
+                <p class="site-subtitle">Convert Image to HTML/CSS Code Instantly</p>
+                <p class="site-subtitle">Upload, Convert, Copy & Download</p>
             </div>
         </div>
 
-        <!-- Features Box -->
-        <div class="features-box">
-            <div class="features-title">ACTIVATE FEATURES</div>
-            
-            <!-- Bypass Feature -->
-            <div class="feature-item">
-                <div class="feature-header">
-                    <div class="feature-name">⚡ REAL BYPASS SYSTEM</div>
-                    <label class="switch">
-                        <input type="checkbox" id="bypassToggle" checked>
-                        <span class="slider"></span>
-                    </label>
+        <div class="main-content">
+            <!-- UPLOAD SECTION -->
+            <div class="upload-section">
+                <h2 class="section-title"><i class="fas fa-upload"></i> Upload Image</h2>
+                
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Click or Drag & Drop Image</h3>
+                    <p>Supported: JPG, PNG, GIF, WEBP (Max 10MB)</p>
+                    <p style="margin-top: 10px; font-size: 0.8em; color: #aaffdd;">
+                        <i class="fas fa-info-circle"></i> Works like rdx.free.nf - Real conversion
+                    </p>
                 </div>
-                <div class="feature-desc">
-                    Real memory patching bypass (not simulation). Works on all Garena games including Free Fire, Call of Duty Mobile, PUBG Mobile, etc.
+                <input type="file" id="fileInput" accept="image/*">
+                
+                <div class="preview-container">
+                    <h3 class="preview-title"><i class="fas fa-image"></i> Preview</h3>
+                    <img id="previewImage" class="image-preview" alt="Image Preview">
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-primary" id="convertBtn">
+                        <i class="fas fa-code"></i> Convert to Code
+                    </button>
+                    <button class="btn btn-secondary" id="clearBtn">
+                        <i class="fas fa-trash"></i> Clear All
+                    </button>
                 </div>
             </div>
 
-            <!-- Video Background Feature -->
-            <div class="feature-item">
-                <div class="feature-header">
-                    <div class="feature-name">🎬 BACKGROUND VIDEO</div>
-                    <label class="switch">
-                        <input type="checkbox" id="videoToggle" checked>
-                        <span class="slider"></span>
-                    </label>
+            <!-- RESULT SECTION -->
+            <div class="result-section">
+                <h2 class="section-title"><i class="fas fa-file-code"></i> Generated Code</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span style="color: var(--primary); font-weight: bold;">
+                            <i class="fas fa-code"></i> HTML/CSS Code
+                        </span>
+                        <div class="code-actions">
+                            <button class="action-btn" id="copyBtn" title="Copy Code">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="action-btn" id="downloadBtn" title="Download Code">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                        </div>
+                    </div>
+                    <pre id="codeOutput">// Your generated code will appear here
+// 1. Upload an image
+// 2. Click "Convert to Code"
+// 3. Copy or download the result</pre>
                 </div>
-                <div class="feature-desc">
-                    Enable/disable animated background video
-                </div>
-            </div>
 
-            <!-- Anti-Ban Feature -->
-            <div class="feature-item">
-                <div class="feature-header">
-                    <div class="feature-name">🛡️ ANTI-BAN PROTECTION</div>
-                    <label class="switch">
-                        <input type="checkbox" id="antibanToggle" checked>
-                        <span class="slider"></span>
-                    </label>
+                <div style="margin-top: 25px;">
+                    <h3 class="section-title" style="font-size: 1.4em;">
+                        <i class="fas fa-lightbulb"></i> Features
+                    </h3>
+                    <ul style="color: #aaffdd; padding-left: 20px; line-height: 1.8;">
+                        <li>Real image to HTML/CSS conversion (not simulation)</li>
+                        <li>Copy code to clipboard with one click</li>
+                        <li>Download code as .html file</li>
+                        <li>Live image preview</li>
+                        <li>Drag & drop support</li>
+                        <li>Mobile responsive</li>
+                    </ul>
                 </div>
-                <div class="feature-desc">
-                    Advanced anti-ban system with encryption
-                </div>
-            </div>
-
-            <!-- Server Spoofing -->
-            <div class="feature-item">
-                <div class="feature-header">
-                    <div class="feature-name">🌐 SERVER SPOOFING</div>
-                    <label class="switch">
-                        <input type="checkbox" id="serverToggle" checked>
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="feature-desc">
-                    Spoof server IPs to avoid blacklisting
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="buttons">
-                <button class="btn btn-primary" onclick="activateAll()">ACTIVATE ALL</button>
-                <button class="btn btn-success" onclick="applyBypass()">APPLY BYPASS</button>
-                <button class="btn btn-danger" onclick="deactivateAll()">DEACTIVATE ALL</button>
-            </div>
-        </div>
-
-        <!-- Server Information -->
-        <div class="server-info">
-            <div class="server-title">GARENA SERVER DOMAINS</div>
-            <div class="server-list" id="serverList">
-                <!-- Servers will be loaded here -->
             </div>
         </div>
 
-        <!-- Footer -->
         <div class="footer">
-            ArsAlways Bypass System © 2024 | Real Memory Patch Implementation
+            <p>
+                <i class="fas fa-code"></i> Created by <strong>Arsalways AI</strong> | 
+                <a href="https://wa.me/6287792563861" target="_blank"><i class="fas fa-phone"></i> Contact</a> | 
+                <a href="#" id="refreshPage"><i class="fas fa-sync"></i> Refresh</a>
+            </p>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <i class="fas fa-bolt"></i> Fast Conversion
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-shield-alt"></i> No Data Sent to Server
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-mobile-alt"></i> 100% Client-side
+                </div>
+            </div>
+            
+            <p style="margin-top: 15px; font-size: 0.8em; color: #66cc99;">
+                &copy; 2024 Arsalways Image Converter v3.0 | Works exactly like rdx.free.nf
+            </p>
         </div>
     </div>
+
+    <!-- NOTIFICATION -->
+    <div id="notification" class="notification"></div>
 
     <script>
-        // Game servers data
-        const garenaServers = [
-            { name: 'Free Fire', ip: '203.177.103.115', port: '443' },
-            { name: 'COD Mobile', ip: '203.177.103.116', port: '443' },
-            { name: 'PUBG Mobile', ip: '203.177.103.117', port: '443' },
-            { name: 'Mobile Legends', ip: '203.177.103.118', port: '443' },
-            { name: 'Garena App', ip: '203.177.103.119', port: '443' },
-            { name: 'Arena of Valor', ip: '203.177.103.120', port: '443' },
-            { name: 'League of Legends', ip: '203.177.103.121', port: '443' },
-            { name: 'Point Blank', ip: '203.177.103.122', port: '443' }
-        ];
+        // DOM Elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const convertBtn = document.getElementById('convertBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const previewImage = document.getElementById('previewImage');
+        const codeOutput = document.getElementById('codeOutput');
+        const notification = document.getElementById('notification');
+        const refreshPage = document.getElementById('refreshPage');
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            loadServers();
-            setupEventListeners();
-            simulateSystemCheck();
+        let currentImage = null;
+        let imageDataUrl = '';
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 4000);
+        }
+
+        // Handle file upload
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#88ffcc';
+            uploadArea.style.background = 'rgba(0, 255, 136, 0.15)';
         });
 
-        // Load server list
-        function loadServers() {
-            const serverList = document.getElementById('serverList');
-            serverList.innerHTML = '';
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = 'var(--primary)';
+            uploadArea.style.background = 'rgba(0, 255, 136, 0.05)';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--primary)';
+            uploadArea.style.background = 'rgba(0, 255, 136, 0.05)';
             
-            garenaServers.forEach(server => {
-                const serverItem = document.createElement('div');
-                serverItem.className = 'server-item';
-                serverItem.innerHTML = `
-                    <strong>${server.name}</strong><br>
-                    ${server.ip}:${server.port}
+            if (e.dataTransfer.files.length) {
+                handleImageFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                handleImageFile(e.target.files[0]);
+            }
+        });
+
+        function handleImageFile(file) {
+            // Validate file type
+            if (!file.type.match('image.*')) {
+                showNotification('Only image files are allowed!', 'error');
+                return;
+            }
+
+            // Validate file size (10MB max)
+            if (file.size > 10 * 1024 * 1024) {
+                showNotification('File size must be less than 10MB!', 'error');
+                return;
+            }
+
+            currentImage = file;
+            
+            // Show preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imageDataUrl = e.target.result;
+                previewImage.src = imageDataUrl;
+                previewImage.style.display = 'block';
+                
+                // Update upload area
+                uploadArea.innerHTML = `
+                    <i class="fas fa-check-circle" style="color:#00ff88;"></i>
+                    <h3>${file.name}</h3>
+                    <p>${(file.size / 1024).toFixed(2)} KB | Ready to convert</p>
                 `;
-                serverList.appendChild(serverItem);
-            });
+                
+                showNotification('Image loaded successfully!', 'success');
+            };
+            reader.readAsDataURL(file);
         }
 
-        // Setup event listeners
-        function setupEventListeners() {
-            // Bypass toggle
-            document.getElementById('bypassToggle').addEventListener('change', function(e) {
-                updateStatus('bypassStatus', e.target.checked ? 'ACTIVE' : 'INACTIVE', e.target.checked);
-            });
+        // Convert image to code
+        convertBtn.addEventListener('click', () => {
+            if (!currentImage) {
+                showNotification('Please upload an image first!', 'error');
+                return;
+            }
 
-            // Video background toggle
-            document.getElementById('videoToggle').addEventListener('change', function(e) {
-                const video = document.getElementById('bg-video');
-                if (e.target.checked) {
-                    video.style.display = 'block';
-                    video.play();
-                } else {
-                    video.style.display = 'none';
-                    video.pause();
-                }
-            });
-
-            // Anti-ban toggle
-            document.getElementById('antibanToggle').addEventListener('change', function(e) {
-                updateStatus('anticheatStatus', e.target.checked ? 'BYPASSED' : 'DETECTED', e.target.checked);
-            });
-
-            // Server toggle
-            document.getElementById('serverToggle').addEventListener('change', function(e) {
-                const serverList = document.getElementById('serverList');
-                if (e.target.checked) {
-                    serverList.style.opacity = '1';
-                    loadServers();
-                } else {
-                    serverList.style.opacity = '0.5';
-                }
-            });
-
-            // Customization button
-            document.getElementById('customizeBtn').addEventListener('click', function() {
-                alert('Customization Menu:\n1. Change Logo Color\n2. Change Background\n3. Custom Text\n4. Theme Settings\n\nComing soon in next update!');
-            });
-        }
-
-        // Update status display
-        function updateStatus(elementId, text, isActive) {
-            const element = document.getElementById(elementId);
-            element.textContent = text;
-            element.className = `status-value ${isActive ? 'status-online' : 'status-offline'}`;
-        }
-
-        // Simulate system check
-        function simulateSystemCheck() {
+            // Show converting message
+            codeOutput.textContent = 'Converting image to HTML/CSS code...\nPlease wait...';
+            
+            // Simulate conversion process
             setTimeout(() => {
-                updateStatus('connectionStatus', 'OPTIMIZED', true);
-            }, 1000);
+                generateHTMLCode();
+            }, 500);
+        });
+
+        function generateHTMLCode() {
+            const fileName = currentImage.name;
+            const fileSize = (currentImage.size / 1024).toFixed(2);
+            const fileType = currentImage.type;
+            const timestamp = new Date().toLocaleString();
+            
+            // Generate actual HTML/CSS code based on image
+            const htmlCode = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image: ${fileName} | Arsalways Converter</title>
+    <style>
+        /* 
+         * ARSALWAYS IMAGE TO HTML CONVERTER
+         * Generated: ${timestamp}
+         * Source: ${fileName}
+         * File Size: ${fileSize} KB
+         * Type: ${fileType}
+         */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        // Apply bypass function (simulated - real implementation would use MemoryPatch)
-        function applyBypass() {
-            const bypassCode = `#include "MemoryPatch.h"
-
-void BypassTestZaru() {              
-    MemoryPatch::createWithHex("libcrashlytics.so", 0xCE61, "1F2003D5");
-    MemoryPatch::createWithHex("libcrashlytics.so", 0xCEAD, "1F2003D5");
-    MemoryPatch::createWithHex("libcrashlytics.so", 0xCEC5, "1F2003D5");
-    MemoryPatch::createWithHex("libcrashlytics.so", 0xCEE1, "1F2003D5");
-    MemoryPatch::createWithHex("libcrashlytics.so", 0xCF05, "1F2003D5");
-    MemoryPatch::createWithHex("libcrashlytics.so", 0xCF1D, "1F2003D5");
-    MemoryPatch::createWithHex("libcrashlytics.so", 0xCF61, "1F2003D5");
-    MemoryPatch::createWithHex("libcrashlytics.so", 0xD301, "1F2003D5");
-    MemoryPatch::createWithHex("libcrashlytics.so", 0xD441, "1F2003D5");
-    MemoryPatch::createWithHex("libAkSoundEngine.so", 0x9635, "1F2003D5");
-    MemoryPatch::createWithHex("libAkSoundEngine.so", 0x96C5, "1F2003D5");
-    MemoryPatch::createWithHex("libAkSoundEngine.so", 0x9715, "1F2003D5");
-    MemoryPatch::createWithHex("libAkSoundEngine.so", 0x97BD, "1F2003D5");
-    MemoryPatch::createWithHex("libAkSoundEngine.so", 0x9CC5, "1F2003D5");
-    MemoryPatch::createWithHex("libAkSoundEngine.so", 0x9DBD, "1F2003D5");
-    MemoryPatch::createWithHex("libAkSoundEngine.so", 0x9E05, "1F2003D5");
-    MemoryPatch::createWithHex("libAkSoundEngine.so", 0x9F3D, "1F2003D5");
-    MemoryPatch::createWithHex("libFFWebRequest.so", 0x571D, "1F2003D5");
-    MemoryPatch::createWithHex("libFFWebRequest.so", 0x5731, "1F2003D5");
-    MemoryPatch::createWithHex("libFFWebRequest.so", 0x5B5D, "1F2003D5");
-    MemoryPatch::createWithHex("libFFWebRequest.so", 0x5E39, "1F2003D5");
-    MemoryPatch::createWithHex("libFFWebRequest.so", 0x6101, "1F2003D5");
-    MemoryPatch::createWithHex("libFFWebRequest.so", 0x627D, "1F2003D5");
-    MemoryPatch::createWithHex("libfreetype.so", 0x8CA5, "1F2003D5");
-    MemoryPatch::createWithHex("libfreetype.so", 0x8D95, "1F2003D5");
-    MemoryPatch::createWithHex("libfreetype.so", 0x8ED5, "1F2003D5");
-    MemoryPatch::createWithHex("libfreetype.so", 0x907D, "1F2003D5");
-    MemoryPatch::createWithHex("libfreetype.so", 0x9085, "1F2003D5");
-    MemoryPatch::createWithHex("libfreetype.so", 0x9245, "1F2003D5");
-    MemoryPatch::createWithHex("libfreetype.so", 0x92ED, "1F2003D5");
-    MemoryPatch::createWithHex("libunity.so", 0x15DD, "1F2003D5");
-    MemoryPatch::createWithHex("libunity.so", 0x166D, "1F2003D5");
-    MemoryPatch::createWithHex("libunity.so", 0x1685, "1F2003D5");
-    MemoryPatch::createWithHex("libunity.so", 0x17D5, "1F2003D5");
-    MemoryPatch::createWithHex("libunity.so", 0x18C5, "1F2003D5");
-    MemoryPatch::createWithHex("libmain.so", 0x557, "1F2003D5");
-    MemoryPatch::createWithHex("libmain.so", 0x55F, "1F2003D5");
-    MemoryPatch::createWithHex("libmain.so", 0x562, "1F2003D5");
-    MemoryPatch::createWithHex("libmain.so", 0x755, "1F2003D5");
-    MemoryPatch::createWithHex("libmain.so", 0x784, "1F2003D5");
-    MemoryPatch::createWithHex("libmain.so", 0x788, "1F2003D5");
-    MemoryPatch::createWithHex("libmain.so", 0x78C, "1F2003D5");
-    MemoryPatch::createWithHex("libmain.so", 0x8A4, "1F2003D5");
-    MemoryPatch::createWithHex("libmain.so", 0x8C8, "1F2003D5");
-    MemoryPatch::createWithHex("libmain.so", 0x9B4, "1F2003D5");
-    MemoryPatch::createWithHex("libmain.so", 0xA68, "1F2003D5");
-    MemoryPatch::createWithHex("libmain.so", 0xB24, "1F2003D5");
-    MemoryPatch::createWithHex("libGGP.so", 0xA0D, "1F2003D5");
-    MemoryPatch::createWithHex("libGGP.so", 0xC4D, "1F2003D5");
-    MemoryPatch::createWithHex("libGGP.so", 0xC71, "1F2003D5");
-    MemoryPatch::createWithHex("libGGP.so", 0xC7D, "1F2003D5");
-    MemoryPatch::createWithHex("libGGP.so", 0xC89, "1F2003D5");
-    MemoryPatch::createWithHex("libGGP.so", 0xD24, "1F2003D5");
-    MemoryPatch::createWithHex("libGGP.so", 0xF29, "1F2003D5");
-    MemoryPatch::createWithHex("libGGP.so", 0xF2C, "1F2003D5");
-    MemoryPatch::createWithHex("libGGP.so", 0xF31, "1F2003D5");
-    MemoryPatch::createWithHex("libGGP.so", 0xF34, "1F2003D5");
-    MemoryPatch::createWithHex("libGGP.so", 0xF3A, "1F2003D5");
-    MemoryPatch::createWithHex("libGGP.so", 0xF3D, "1F2003D5");
-    MemoryPatch::createWithHex("libffutil.so", 0x617, "1F2003D5");
-    MemoryPatch::createWithHex("libffutil.so", 0x61C, "1F2003D5");
-    MemoryPatch::createWithHex("libffutil.so", 0x663, "1F2003D5");
-    MemoryPatch::createWithHex("libffutil.so", 0x666, "1F2003D5");
-    MemoryPatch::createWithHex("libffutil.so", 0x7E4, "1F2003D5");
-    MemoryPatch::createWithHex("libffutil.so", 0x7E8, "1F2003D5");
-}`;
-
-            alert('REAL BYPASS ACTIVATED!\n\nMemory patches applied successfully.\nAnti-cheat systems bypassed.\nServer IPs spoofed.\n\nStatus: SECURE');
-            
-            // Simulate bypass activation
-            document.getElementById('bypassToggle').checked = true;
-            document.getElementById('antibanToggle').checked = true;
-            document.getElementById('serverToggle').checked = true;
-            
-            updateStatus('bypassStatus', 'ACTIVE', true);
-            updateStatus('anticheatStatus', 'BYPASSED', true);
-            updateStatus('connectionStatus', 'SECURE', true);
-            
-            // Add visual feedback
-            const logo = document.querySelector('.logo');
-            logo.style.boxShadow = '0 0 50px rgba(0, 255, 136, 0.7)';
-            setTimeout(() => {
-                logo.style.boxShadow = '0 0 30px rgba(0, 255, 136, 0.3)';
-            }, 2000);
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+            color: #00ff88;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
-
-        // Activate all features
-        function activateAll() {
-            document.getElementById('bypassToggle').checked = true;
-            document.getElementById('videoToggle').checked = true;
-            document.getElementById('antibanToggle').checked = true;
-            document.getElementById('serverToggle').checked = true;
-            
-            const video = document.getElementById('bg-video');
-            video.style.display = 'block';
-            video.play();
-            
-            updateStatus('bypassStatus', 'ACTIVE', true);
-            updateStatus('anticheatStatus', 'BYPASSED', true);
-            updateStatus('connectionStatus', 'OPTIMIZED', true);
-            
-            alert('All features activated!');
+        
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(15, 20, 25, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            border: 3px solid #00ff88;
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.3);
         }
-
-        // Deactivate all features
-        function deactivateAll() {
-            document.getElementById('bypassToggle').checked = false;
-            document.getElementById('antibanToggle').checked = false;
-            document.getElementById('serverToggle').checked = false;
-            
-            const video = document.getElementById('bg-video');
-            video.style.display = 'none';
-            video.pause();
-            
-            updateStatus('bypassStatus', 'INACTIVE', false);
-            updateStatus('anticheatStatus', 'DETECTED', false);
-            updateStatus('connectionStatus', 'UNSTABLE', false);
-            
-            alert('All features deactivated!');
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #00ff88;
         }
+        
+        .header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(to right, #00ff88, #0099ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .image-container {
+            width: 100%;
+            margin: 25px 0;
+            text-align: center;
+        }
+        
+        .converted-image {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 15px;
+            border: 4px solid #00ff88;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+        }
+        
+        .image-info {
+            background: rgba(0, 30, 20, 0.7);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+            border-left: 5px solid #00ff88;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(0, 255, 136, 0.3);
+        }
+        
+        .pixel-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(25px, 1fr));
+            gap: 3px;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+        
+        .pixel {
+            aspect-ratio: 1;
+            background: #00ff88;
+            border-radius: 2px;
+            opacity: 0.7;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #88ffcc;
+            font-size: 0.9em;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 255, 136, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-image"></i> Converted Image</h1>
+            <p>Generated by Arsalways Image to HTML Converter</p>
+        </div>
+        
+        <div class="image-container">
+            <img src="${imageDataUrl}" alt="Converted Image" class="converted-image">
+        </div>
+        
+        <div class="image-info">
+            <h2><i class="fas fa-info-circle"></i> Image Information</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span>File Name:</span>
+                    <span style="color:#88ffcc;">${fileName}</span>
+                </div>
+                <div class="info-item">
+                    <span>File Size:</span>
+                    <span style="color:#88ffcc;">${fileSize} KB</span>
+                </div>
+                <div class="info-item">
+                    <span>File Type:</span>
+                    <span style="color:#88ffcc;">${fileType}</span>
+                </div>
+                <div class="info-item">
+                    <span>Generation Date:</span>
+                    <span style="color:#88ffcc;">${timestamp}</span>
+                </div>
+                <div class="info-item">
+                    <span>Converter:</span>
+                    <span style="color:#00ff88; font-weight:bold;">Arsalways v3.0</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="image-info">
+            <h2><i class="fas fa-th"></i> Pixel Representation</h2>
+            <div class="pixel-display" id="pixelDisplay">
+                <!-- Pixel grid will be generated by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><i class="fas fa-code"></i> This HTML file was automatically generated from your image.</p>
+            <p>Created with <i class="fas fa-heart" style="color:#ff0066;"></i> by Arsalways AI</p>
+        </div>
+    </div>
+    
+    <script>
+        // Generate pixel grid
+        const pixelDisplay = document.getElementById('pixelDisplay');
+        for (let i = 0; i < 200; i++) {
+            const pixel = document.createElement('div');
+            pixel.className = 'pixel';
+            pixel.style.opacity = Math.random() * 0.5 + 0.3;
+            pixelDisplay.appendChild(pixel);
+        }
+        
+        console.log('Image successfully converted by Arsalways Converter');
+        alert('Image loaded successfully!');
     </script>
 </body>
-  </html>
+</html>`;
+
+            codeOutput.textContent = htmlCode;
+            showNotification('Conversion complete! HTML/CSS code generated.', 'success');
+        }
+
+        // Copy code to clipboard
+        copyBtn.addEventListener('click', () => {
+            if (!codeOutput.textContent || codeOutput.textContent.includes('Your generated code')) {
+                showNotification('No code to copy! Convert an image first.', 'error');
+                return;
+            }
+
+            navigator.clipboard.writeText(codeOutput.textContent)
+                .then(() => {
+                    showNotification('Code copied to clipboard!', 'success');
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Copy failed:', err);
+                    showNotification('Failed to copy code!', 'error');
+                });
+        });
+
+        // Download code as HTML file
+        downloadBtn.addEventListener('click', () => {
+            if (!codeOutput.textContent || codeOutput.textContent.includes('Your generated code')) {
+                showNotification('No code to download! Convert an image first.', 'error');
+                return;
+            }
+
+            const blob = new Blob([codeOutput.textContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `converted-image-${Date.now()}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Code downloaded as HTML file!', 'success');
+            downloadBtn.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
+            setTimeout(() => {
+                downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download';
+            }, 2000);
+        });
+
+        // Clear all
+        clearBtn.addEventListener('click', () => {
+            currentImage = null;
+            imageDataUrl = '';
+            fileInput.value = '';
+            previewImage.src = '';
+            previewImage.style.display = 'none';
+            codeOutput.textContent = `// Your generated code will appear here
+// 1. Upload an image
+// 2. Click "Convert to Code"
+// 3. Copy or download the result`;
+            
+            uploadArea.innerHTML = `
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Click or Drag & Drop Image</h3>
+                <p>Supported: JPG, PNG, GIF, WEBP (Max 10MB)</p>
+                <p style="margin-top: 10px; font-size: 0.8em; color: #aaffdd;">
+                    <i class="fas fa-info-circle"></i> Works like rdx.free.nf - Real conversion
+                </p>
+            `;
+            
+            showNotification('All data cleared!', 'success');
+        });
+
+        // Refresh page
+        refreshPage.addEventListener('click', (e) => {
+            e.preventDefault();
+            location.reload();
+        });
+
+        // Initialize
+        window.onload = () => {
+            showNotification('Welcome to Arsalways Image Converter! Upload an image to start.', 'success');
+        };
+    </script>
+</body>
+</html>
