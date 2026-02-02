@@ -6,6 +6,7 @@
 <title>Arsalways Control Panel</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
+/* ---- style sama persis seperti sebelumnya ---- */
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
 body{background: linear-gradient(135deg,#0c0c0c,#1a1a2e);color:#f1f1f1;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px;overflow-x:hidden;position:relative;}
 .header{text-align:center;margin-bottom:30px;}
@@ -50,6 +51,10 @@ body{background: linear-gradient(135deg,#0c0c0c,#1a1a2e);color:#f1f1f1;min-heigh
 .mode-btn{background:#222;color:#fff;padding:8px;border:none;border-radius:8px;cursor:pointer;}
 .mode-btn:hover{background:#00ffcc;color:#000;}
 </style>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 </head>
 <body>
 
@@ -115,19 +120,37 @@ body{background: linear-gradient(135deg,#0c0c0c,#1a1a2e);color:#f1f1f1;min-heigh
 <div class="footer">©2026 Arsalways Dark Engine | Spam acak sesuai pengaturan slider.</div>
 
 <script>
-// ===== Daftar Text Acak =====
+// ===== Firebase Config =====
+const firebaseConfig = {
+  apiKey: "API_KEY_KAMU",
+  authDomain: "PROJECT.firebaseapp.com",
+  databaseURL: "https://PROJECT.firebaseio.com",
+  projectId: "PROJECT",
+  storageBucket: "PROJECT.appspot.com",
+  messagingSenderId: "123456",
+  appId: "1:123456:web:abcdef"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// ===== Online Users =====
+const onlineRef = db.ref("online_users");
+let userSessionRef = onlineRef.push(true);
+window.addEventListener("beforeunload",()=>{if(userSessionRef) userSessionRef.remove();});
+onlineRef.on("value",snap=>{document.getElementById("online-count").innerText = snap.numChildren();});
+
+// ===== Usage Counter =====
+let usageCount = parseInt(localStorage.getItem("usageCount")||"0");
+document.getElementById("usage-count").innerText = usageCount;
+
+// ===== Spam List =====
 const spamList = [
   'a⃤i⃤u⃤w⃤j⃟ w⃟ j⃟ j⃟ s⃟ i⃤s⃤j⃤e⃤ j⃤s⃠w⃠i⃠i⃠w⃠⃤j⃤ s⃢ SᒚSᒚ j⃢ s⃢ j⃢ w⃤',
   's⃢ j⃤ w⃟ a⃤ i⃤ j⃟',
   'i⃤w⃠j⃢ s⃟e⃤',
 ];
 
-// ===== Fungsi ambil acak dari list =====
-function getRandomSpamFromList() {
-  return spamList[Math.floor(Math.random()*spamList.length)];
-}
-
-// ===== Variabel =====
+// ===== Variabel DOM =====
 const semuaTombol=document.querySelectorAll('.fitur-btn');
 const labelFitur=document.getElementById('label-fitur');
 const textDesc=document.getElementById('text-desc');
@@ -176,20 +199,19 @@ nomorInput.addEventListener('input',updateUrlPreview);
 customText.addEventListener('input',updateUrlPreview);
 
 // ===== Update Preview =====
+function getRandomSpamFromList(){return spamList[Math.floor(Math.random()*spamList.length)];}
+
 function updateUrlPreview(){
     const nomor=nomorInput.value.trim();
-    if(!nomor || !fiturAktif || !modeSelected){return;}
-
+    if(!nomor || !fiturAktif || !modeSelected) return;
     let payload = fiturAktif==='custom'?(customText.value.trim()||'...'):getRandomSpamFromList();
     let encoded = encodeURIComponent(payload);
-
     let nomorFinal=nomor;
     if(modeSelected==='wa'){
         if(nomor.match(/^0/)){nomorFinal='62'+nomor.replace(/^0+/,'');}
         else if(!nomor.match(/^[0-9]+$/)){nomorFinal=nomor;}
         else {nomorFinal='62'+nomor;}
     }
-
     const waUrl=modeSelected==='grup'?nomorFinal:`https://wa.me/${nomorFinal}?text=${encoded}`;
     urlText.textContent=waUrl;
 }
@@ -215,8 +237,12 @@ kirimBtn.addEventListener('click',()=>{
 
     const waUrl=modeSelected==='grup'?nomorFinal:`https://wa.me/${nomorFinal}?text=${encoded}`;
     window.open(waUrl,'_blank');
+
+    // Tambah usage
+    usageCount++;
+    localStorage.setItem('usageCount',usageCount);
+    document.getElementById("usage-count").innerText=usageCount;
 });
 </script>
-
 </body>
 </html>
