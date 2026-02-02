@@ -43,137 +43,91 @@ body{background: linear-gradient(135deg,#0c0c0c,#1a1a2e);color:#f1f1f1;min-heigh
 .warning{color:#ffcc00;font-size:0.85rem;margin-top:5px;font-style:italic;}
 .custom-input{display:none;margin-top:15px;}
 .info-box{background:rgba(255,0,128,0.08);border:1px solid #ff0080;border-radius:10px;padding:12px;margin-top:20px;font-size:0.85rem;color:#ffaaaa;}
-.url-preview{background:rgba(0,0,0,0.3);border:1px solid #444;border-radius:8px;padding:10px;margin-top:15px;font-size:0.8rem;word-break:break-all;color:#aaddff;display:none;}
+.url-preview{background:rgba(0,0,0,0.3);border:1px solid #444;border-radius:8px;padding:10px;margin-top:15px;font-size:0.8rem;word-break:break-all;color:#aaddff;display:block;}
 #user-box{position:absolute;top:20px;left:20px;background:rgba(0,0,0,0.6);padding:15px;border-radius:15px 0 15px 0;width:200px;}
 #user-box div{margin-bottom:8px;font-size:0.9rem;}
 #mode-popup{position:absolute;top:45px;left:0;background:#111;border:1px solid #555;padding:10px;border-radius:10px;display:none;flex-direction:column;gap:10px;z-index:10;width:150px;}
 .mode-btn{background:#222;color:#fff;padding:8px;border:none;border-radius:8px;cursor:pointer;}
 .mode-btn:hover{background:#00ffcc;color:#000;}
 </style>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 </head>
 <body>
 
 <div class="header">
-    <div class="logo"><i class="fas fa-bolt"></i></div>
-    <div class="nama">Arsalways</div>
-    <div class="tagline">ULTIMATE WhatsApp Spam Engine</div>
+  <div class="logo"><i class="fas fa-bolt"></i></div>
+  <div class="nama">Arsalways</div>
+  <div class="tagline">ULTIMATE WhatsApp Spam Engine</div>
 </div>
 
 <div id="user-box">
-    <div>Pemakaian Anda: <span id="usage-count">0</span></div>
-    <div>Pengguna Online: <span id="online-count">0</span></div>
+  <div>Pemakaian Anda: <span id="usage-count">0</span></div>
+  <div>Pengguna Online: <span id="online-count">0</span></div>
 </div>
 
 <div class="container">
-    <div class="input-group">
-        <label for="nomor"><i class="fas fa-phone-alt"></i> Nomor / URL Grup</label>
-        <input type="text" id="nomor" placeholder="Masukkan nomor atau URL grup">
-        <button id="pilih-mode" class="fitur-btn" style="width:100%;margin-top:10px;">Pilih Mode</button>
-        <div id="mode-popup">
-            <button class="mode-btn" data-mode="wa">WA</button>
-            <button class="mode-btn" data-mode="grup">Grup</button>
-        </div>
-        <div class="warning" id="nomor-warning">Masukkan sesuai mode</div>
+  <div class="input-group">
+    <label for="nomor"><i class="fas fa-phone-alt"></i> Nomor / URL Grup</label>
+    <input type="text" id="nomor" placeholder="Masukkan nomor atau URL grup">
+    <button id="pilih-mode" class="fitur-btn" style="width:100%;margin-top:10px;">Pilih Mode</button>
+    <div id="mode-popup">
+      <button class="mode-btn" data-mode="wa">WA</button>
+      <button class="mode-btn" data-mode="grup">Grup</button>
     </div>
+    <div class="warning" id="nomor-warning">Masukkan sesuai mode</div>
+  </div>
 
-    <div class="fitur-title">PILIH METODE SPAM:</div>
-    <div class="fitur-container">
-        <div class="fitur-btn" data-fitur="spam1">🔥 SPAM ACAK 1</div>
-        <div class="fitur-btn" data-fitur="spam2">💀 SPAM ACAK 2</div>
-        <div class="fitur-btn" data-fitur="spam3">👹 SPAM ACAK 3</div>
-        <div class="fitur-btn" data-fitur="spam4">🤖 SPAM ACAK 4</div>
-        <div class="fitur-btn" data-fitur="spam5">☠️ SPAM ACAK 5</div>
-        <div class="fitur-btn" data-fitur="custom">✏️ CUSTOM MODE</div>
+  <div class="fitur-title">PILIH METODE SPAM:</div>
+  <div class="fitur-container">
+    <div class="fitur-btn" data-fitur="spam1">🔥 SPAM ACAK 1</div>
+    <div class="fitur-btn" data-fitur="spam2">💀 SPAM ACAK 2</div>
+    <div class="fitur-btn" data-fitur="spam3">👹 SPAM ACAK 3</div>
+    <div class="fitur-btn" data-fitur="spam4">🤖 SPAM ACAK 4</div>
+    <div class="fitur-btn" data-fitur="spam5">☠️ SPAM ACAK 5</div>
+    <div class="fitur-btn" data-fitur="custom">✏️ CUSTOM MODE</div>
+  </div>
+
+  <div class="pilih-fitur-label" id="label-fitur">Pilih Fitur → belum dipilih</div>
+  <div class="text-desc" id="text-desc">Pilih fitur di atas untuk mengaktifkan spam acak.</div>
+
+  <div class="input-group custom-input" id="custom-input">
+    <label for="custom-text"><i class="fas fa-edit"></i> Masukkan Teks Spam Custom:</label>
+    <textarea id="custom-text" placeholder="Tulis teks spam custom disini..."></textarea>
+  </div>
+
+  <div class="slider-group">
+    <label for="slider"><i class="fas fa-sliders-h"></i> JUMLAH SPAM: <span id="slider-value">1000</span>x</label>
+    <div class="slider-container">
+      <div class="slider-value" id="value-box">1000</div>
+      <input type="range" min="10" max="200000" value="1000" class="slider" id="slider">
     </div>
+  </div>
 
-    <div class="pilih-fitur-label" id="label-fitur">Pilih Fitur → belum dipilih</div>
-    <div class="text-desc" id="text-desc">Pilih fitur di atas untuk mengaktifkan spam acak. Semakin tinggi slider, semakin banyak spam yang dikirim.</div>
+  <div class="info-box"><i class="fas fa-exclamation-triangle"></i> Slider hanya menentukan penggandaan teks saat dikirim, tidak muncul di preview.</div>
 
-    <div class="input-group custom-input" id="custom-input">
-        <label for="custom-text"><i class="fas fa-edit"></i> Masukkan Teks Spam Custom:</label>
-        <textarea id="custom-text" placeholder="Tulis teks spam custom disini..."></textarea>
-    </div>
+  <div class="url-preview" id="url-preview">
+    <strong>Preview URL WhatsApp:</strong><br>
+    <span id="url-text">https://wa.me/62XXXXXXXXXX?text=Spam+akan+muncul+disini...</span>
+  </div>
 
-    <div class="slider-group">
-        <label for="slider"><i class="fas fa-sliders-h"></i> JUMLAH SPAM: <span id="slider-value">1000</span>x</label>
-        <div class="slider-container">
-            <div class="slider-value" id="value-box">1000</div>
-            <input type="range" min="10" max="200000" value="1000" class="slider" id="slider">
-        </div>
-    </div>
-
-    <div class="info-box"><i class="fas fa-exclamation-triangle"></i> SPAM AKAN DIGANDAKAN SESUAI NILAI SLIDER. Contoh: slider 1000 = spam 1000x lipat.</div>
-
-    <div class="url-preview" id="url-preview">
-        <strong>Preview URL WhatsApp:</strong><br>
-        <span id="url-text">https://wa.me/62XXXXXXXXXX?text=Spam+akan+muncul+disini...</span>
-    </div>
-
-    <button class="kirim-btn" id="kirim"><i class="fab fa-whatsapp"></i> BUKA WHATSAPP DENGAN SPAM</button>
+  <button class="kirim-btn" id="kirim"><i class="fab fa-whatsapp"></i> BUKA WHATSAPP DENGAN SPAM</button>
 </div>
 
 <div class="footer">©2026 Arsalways Dark Engine | Spam acak sesuai pengaturan slider.</div>
 
 <script>
-// ===== Firebase Setup =====
-// GANTI DENGAN FIREBASE PROJECT MU
-const firebaseConfig = {
-  apiKey: "AIzaSyAF3B3_Bq-Q9ulQdxfXHkCBqMTIDlx0sqY",
-  authDomain: "panel-user-b78ff.firebaseapp.com",
-  databaseURL: "https://panel-user-b78ff-default-rtdb.firebaseio.com",
-  projectId: "panel-user-b78ff",
-  storageBucket: "panel-user-b78ff.firebasestorage.app",
-  messagingSenderId: "86797928744",
-  appId: "1:86797928744:web:cb85dd498c6cf3b659281d"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+// ===== Daftar Text Acak =====
+const spamList = [
+  'a⃤i⃤u⃤w⃤j⃟ w⃟ j⃟ j⃟ s⃟ i⃤s⃤j⃤e⃤ j⃤s⃠w⃠i⃠i⃠w⃠⃤j⃤ s⃢ SᒚSᒚ j⃢ s⃢ j⃢ w⃤',
+  's⃢ j⃤ w⃟ a⃤ i⃤ j⃟',
+  'i⃤w⃠j⃢ s⃟e⃤',
+];
 
-// Realtime Online Users
-const onlineRef = db.ref("online_users");
-let userSessionRef = null;
-function addOnlineUser(){userSessionRef=onlineRef.push(true);}
-function removeOnlineUser(){if(userSessionRef) userSessionRef.remove();}
-onlineRef.on("value",snap=>{document.getElementById("online-count").innerText=snap.numChildren();});
-window.addEventListener("beforeunload",removeOnlineUser);
-addOnlineUser();
-
-// ===== Usage Counter =====
-let usageCount = parseInt(localStorage.getItem("usageCount")||"0");
-document.getElementById("usage-count").innerText = usageCount;
-
-// ===== Mode Pilih =====
-const pilihBtn=document.getElementById("pilih-mode");
-const modePopup=document.getElementById("mode-popup");
-let modeSelected=null;
-const nomorInput=document.getElementById('nomor');
-pilihBtn.addEventListener("click",()=>{modePopup.style.display=(modePopup.style.display==='flex')?'none':'flex';});
-document.querySelectorAll(".mode-btn").forEach(btn=>{
-    btn.addEventListener("click",()=>{
-        modeSelected=btn.dataset.mode;
-        modePopup.style.display="none";
-        pilihBtn.innerText=`Mode: ${modeSelected.toUpperCase()}`;
-        nomorInput.placeholder = modeSelected==='wa' ? "Contoh: 883738383" : "Contoh URL Grup: https://chat.whatsapp.com/XXXXX";
-        updateUrlPreview();
-    });
-});
-
-// ===== Fitur Spam =====
-function generateRandomSpam(){ 
-  const chars='🅰🆄🆄🆆💥☠️🤯👾💀👻🎃😈👹👺';
-  let res=''; for(let i=0;i<10;i++){res+=chars[Math.floor(Math.random()*chars.length)];} return res;
+// ===== Fungsi ambil acak dari list =====
+function getRandomSpamFromList() {
+  return spamList[Math.floor(Math.random()*spamList.length)];
 }
-const fiturData={
-  spam1:{name:"🔥 SPAM ACAK 1"},
-  spam2:{name:"💀 SPAM ACAK 2"},
-  spam3:{name:"👹 SPAM ACAK 3"},
-  spam4:{name:"🤖 SPAM ACAK 4"},
-  spam5:{name:"☠️ SPAM ACAK 5"},
-  custom:{name:"✏️ CUSTOM MODE"}
-};
-let fiturAktif=null;
+
+// ===== Variabel =====
 const semuaTombol=document.querySelectorAll('.fitur-btn');
 const labelFitur=document.getElementById('label-fitur');
 const textDesc=document.getElementById('text-desc');
@@ -183,55 +137,86 @@ const valueBox=document.getElementById('value-box');
 const kirimBtn=document.getElementById('kirim');
 const customInput=document.getElementById('custom-input');
 const customText=document.getElementById('custom-text');
-const urlPreview=document.getElementById('url-preview');
 const urlText=document.getElementById('url-text');
+const nomorInput=document.getElementById('nomor');
+const pilihBtn=document.getElementById("pilih-mode");
+const modePopup=document.getElementById("mode-popup");
 
-function updateUrlPreview(){
-    const nomor=nomorInput.value.trim();
-    if(!nomor||!fiturAktif||!modeSelected){urlPreview.style.display='none';return;}
-    let payload=fiturAktif==='custom'?customText.value.trim().substring(0,50)+'...':generateRandomSpam().substring(0,50)+'...';
-    const encoded=encodeURIComponent(payload);
-    const waUrl=modeSelected==='grup'?nomor:`https://wa.me/62${nomor}?text=${encoded}`;
-    urlText.textContent=waUrl;
-}
+let fiturAktif=null;
+let modeSelected=null;
 
-// Pilih fitur
+// ===== Mode Pilih =====
+pilihBtn.addEventListener("click",()=>{modePopup.style.display=(modePopup.style.display==='flex')?'none':'flex';});
+document.querySelectorAll(".mode-btn").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+        modeSelected=btn.dataset.mode;
+        modePopup.style.display="none";
+        pilihBtn.innerText=`Mode: ${modeSelected.toUpperCase()}`;
+        nomorInput.placeholder = modeSelected==='wa'?"Contoh: 883738383":"Contoh URL Grup: https://chat.whatsapp.com/XXXXX";
+        updateUrlPreview();
+    });
+});
+
+// ===== Pilih Fitur =====
 semuaTombol.forEach(btn=>{
     btn.addEventListener('click',()=>{
         semuaTombol.forEach(b=>b.classList.remove('active'));
         btn.classList.add('active');
         fiturAktif=btn.dataset.fitur;
-        const data=fiturData[fiturAktif];
-        labelFitur.innerHTML=`<i class="fas fa-check"></i> Fitur Aktif: <strong>${data.name}</strong>`;
-        if(fiturAktif==='custom'){customInput.style.display='block';textDesc.innerHTML='Gunakan textarea di bawah untuk menulis spam custom.';}
-        else{customInput.style.display='none';textDesc.innerHTML='Spam acak akan digenerate dengan karakter khusus. Slider menentukan jumlah pengulangan.';}
+        labelFitur.innerHTML=`<i class="fas fa-check"></i> Fitur Aktif: <strong>${btn.textContent}</strong>`;
+        if(fiturAktif==='custom'){customInput.style.display='block';textDesc.innerHTML='Gunakan textarea untuk menulis spam custom.';}
+        else{customInput.style.display='none';textDesc.innerHTML='Spam acak akan digenerate dari list.';}
         updateUrlPreview();
     });
 });
 
-// Slider & input
-slider.addEventListener('input',()=>{sliderValue.textContent=slider.value;valueBox.textContent=slider.value;updateUrlPreview();});
+// ===== Slider & Input =====
+slider.addEventListener('input',()=>{sliderValue.textContent=slider.value;valueBox.textContent=slider.value;});
 nomorInput.addEventListener('input',updateUrlPreview);
 customText.addEventListener('input',updateUrlPreview);
 
-// Kirim tombol
+// ===== Update Preview =====
+function updateUrlPreview(){
+    const nomor=nomorInput.value.trim();
+    if(!nomor || !fiturAktif || !modeSelected){return;}
+
+    let payload = fiturAktif==='custom'?(customText.value.trim()||'...'):getRandomSpamFromList();
+    let encoded = encodeURIComponent(payload);
+
+    let nomorFinal=nomor;
+    if(modeSelected==='wa'){
+        if(nomor.match(/^0/)){nomorFinal='62'+nomor.replace(/^0+/,'');}
+        else if(!nomor.match(/^[0-9]+$/)){nomorFinal=nomor;}
+        else {nomorFinal='62'+nomor;}
+    }
+
+    const waUrl=modeSelected==='grup'?nomorFinal:`https://wa.me/${nomorFinal}?text=${encoded}`;
+    urlText.textContent=waUrl;
+}
+
+// ===== Kirim =====
 kirimBtn.addEventListener('click',()=>{
     const nomor=nomorInput.value.trim();
     if(!nomor){alert('Masukkan nomor/grup!');return;}
     if(!fiturAktif){alert('Pilih fitur dulu!');return;}
     if(!modeSelected){alert('Pilih mode dulu!');return;}
-    let payload=fiturAktif==='custom'?customText.value.trim():generateRandomSpam();
-    let repeat=Math.floor(slider.value/100); repeat=Math.max(1,repeat);
-    let finalPayload=payload.repeat(repeat); 
-    if(finalPayload.length>50000) finalPayload=finalPayload.substring(0,50000);
+
+    let payload = fiturAktif==='custom'?(customText.value.trim()||'...'):getRandomSpamFromList();
+    let repeatCount=Math.min(Math.max(1,Math.floor(slider.value/100)),500);
+    let finalPayload=payload.repeat(repeatCount).substring(0,50000);
     const encoded=encodeURIComponent(finalPayload);
-    let waUrl=modeSelected==='grup'?nomor:`https://wa.me/62${nomor}?text=${encoded}`;
+
+    let nomorFinal=nomor;
+    if(modeSelected==='wa'){
+        if(nomor.match(/^0/)){nomorFinal='62'+nomor.replace(/^0+/,'');}
+        else if(!nomor.match(/^[0-9]+$/)){nomorFinal=nomor;}
+        else {nomorFinal='62'+nomor;}
+    }
+
+    const waUrl=modeSelected==='grup'?nomorFinal:`https://wa.me/${nomorFinal}?text=${encoded}`;
     window.open(waUrl,'_blank');
-    // Tambah pemakaian +1 saja
-    usageCount++;
-    localStorage.setItem('usageCount',usageCount);
-    document.getElementById('usage-count').innerText=usageCount;
 });
 </script>
+
 </body>
-                                </html>
+</html>
