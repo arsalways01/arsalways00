@@ -1,330 +1,1231 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arsalways Control Panel</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
-body{background: linear-gradient(135deg,#0c0c0c,#1a1a2e);color:#f1f1f1;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px;}
-.header{text-align:center;margin-bottom:30px;}
-.logo{width:150px;height:150px;border-radius:50%;background:linear-gradient(45deg,#ff0080,#00ffcc);display:flex;align-items:center;justify-content:center;margin:0 auto 15px;box-shadow:0 0 25px #ff0080aa;animation:glow 2s infinite alternate;}
-@keyframes glow{0%{box-shadow:0 0 25px #ff0080aa;}100%{box-shadow:0 0 35px #00ffccaa;}}
-.logo i{font-size:70px;color:white;}
-.nama{font-size:2.8rem;font-weight:900;background:linear-gradient(90deg,#ff0080,#00ffcc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px;margin-bottom:5px;}
-.tagline{color:#aaa;font-size:0.9rem;margin-bottom:30px;}
-.container{width:100%;max-width:650px;background:rgba(30,30,46,0.9);border-radius:20px;padding:25px;box-shadow:0 10px 30px rgba(0,0,0,0.5);border:1px solid #333;}
-.input-group{margin-bottom:25px;position:relative;}
-.input-group label{display:block;margin-bottom:8px;color:#00ffcc;font-weight:600;}
-.input-group input,.input-group textarea{width:100%;padding:15px;background:rgba(255,255,255,0.07);border:1px solid #444;border-radius:10px;color:white;font-size:1rem;outline:none;transition:0.3s;resize:vertical;}
-.input-group textarea{min-height:130px;font-family:monospace;line-height:1.4;}
-.input-group input:focus,.input-group textarea:focus{border-color:#00ffcc;box-shadow:0 0 10px #00ffcc33;}
-.fitur-title{color:#ff0080;margin-bottom:10px;font-size:1.2rem;font-weight:700;}
-.fitur-container{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:25px;}
-@media(max-width:600px){.fitur-container{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:400px){.fitur-container{grid-template-columns:1fr;}}
-.fitur-btn{background:rgba(255,255,255,0.05);border:2px solid #444;border-radius:10px;padding:16px 8px;cursor:pointer;transition:all 0.3s;color:#ccc;text-align:center;font-weight:600;user-select:none;font-size:0.9rem;}
-.fitur-btn:hover{background:rgba(255,0,128,0.1);border-color:#ff0080;}
-.fitur-btn.active{background:rgba(255,0,128,0.25);border-color:#ff0080;color:#ff0080;box-shadow:0 0 15px #ff008055;}
-.text-desc{margin-top:20px;padding:15px;background:rgba(0,255,204,0.05);border-radius:10px;border-left:4px solid #00ffcc;font-size:0.95rem;line-height:1.5;color:#aaddff;min-height:85px;}
-.pilih-fitur-label{background:rgba(255,0,128,0.1);padding:12px;border-radius:10px;margin-bottom:20px;text-align:center;font-weight:bold;color:#ff0080;border:1px dashed #ff0080;font-size:1.1rem;}
-.slider-group{margin-bottom:30px;}
-.slider-group label{display:block;margin-bottom:10px;color:#00ffcc;font-weight:600;}
-.slider-container{display:flex;align-items:center;gap:15px;}
-.slider-value{font-weight:900;font-size:2rem;color:#ff0080;min-width:90px;text-align:center;text-shadow:0 0 10px #ff0080aa;}
-.slider{flex:1;-webkit-appearance:none;height:14px;border-radius:10px;background:linear-gradient(90deg,#00ffcc,#ff0080,#ff0000);outline:none;cursor:pointer;}
-.slider::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:white;cursor:pointer;box-shadow:0 0 15px black;border:3px solid #ff0080;transition:0.2s;}
-.slider::-webkit-slider-thumb:hover{transform:scale(1.1);border-color:#00ffcc;}
-.kirim-btn{width:100%;padding:22px;background:linear-gradient(90deg,#ff0080,#ff3333,#ff0000);color:white;border:none;border-radius:15px;font-size:1.5rem;font-weight:900;cursor:pointer;transition:0.3s;letter-spacing:2px;margin-top:10px;text-shadow:0 2px 5px rgba(0,0,0,0.5);}
-.kirim-btn:hover{background:linear-gradient(90deg,#ff3333,#ff0000,#cc0000);box-shadow:0 0 35px #ff5555aa;transform:translateY(-5px);}
-.kirim-btn:active{transform:translateY(0);}
-.footer{margin-top:30px;color:#666;font-size:0.8rem;text-align:center;padding:10px;}
-.warning{color:#ffcc00;font-size:0.85rem;margin-top:5px;font-style:italic;}
-.custom-input{display:none;margin-top:15px;}
-.info-box{background:rgba(255,0,128,0.08);border:1px solid #ff0080;border-radius:10px;padding:12px;margin-top:20px;font-size:0.85rem;color:#ffaaaa;}
-.url-preview{background:rgba(0,0,0,0.3);border:1px solid #444;border-radius:8px;padding:10px;margin-top:15px;font-size:0.8rem;word-break:break-all;color:#aaddff;display:block;}
-#user-box{position:absolute;top:20px;left:20px;background:rgba(0,0,0,0.6);padding:15px;border-radius:15px 0 15px 0;width:200px;}
-#user-box div{margin-bottom:8px;font-size:0.9rem;}
-.mode-container{margin-top:10px;display:none;gap:10px;}
-.mode-option{flex:1;background:rgba(255,255,255,0.05);border:2px solid #444;border-radius:10px;padding:12px;cursor:pointer;transition:all 0.3s;color:#ccc;text-align:center;font-weight:600;user-select:none;}
-.mode-option:hover{background:rgba(255,0,128,0.1);border-color:#ff0080;}
-.mode-option.active{background:rgba(255,0,128,0.25);border-color:#ff0080;color:#ff0080;box-shadow:0 0 15px #ff008055;}
-</style>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML to APK Builder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            background-image: linear-gradient(to bottom right, #0d1117, #161b22);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(22, 27, 34, 0.8);
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #58a6ff;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        h1 i {
+            font-size: 2.8rem;
+            color: #238636;
+        }
+        
+        .subtitle {
+            color: #8b949e;
+            font-size: 1.2rem;
+        }
+        
+        .card {
+            background: rgba(22, 27, 34, 0.8);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid #30363d;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        h2 {
+            color: #58a6ff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h3 {
+            color: #58a6ff;
+            margin-bottom: 15px;
+        }
+        
+        .upload-area {
+            border: 2px dashed #58a6ff;
+            border-radius: 10px;
+            padding: 60px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            background: rgba(88, 166, 255, 0.05);
+        }
+        
+        .upload-area:hover {
+            background: rgba(88, 166, 255, 0.1);
+            border-color: #238636;
+        }
+        
+        .upload-area i {
+            font-size: 60px;
+            color: #58a6ff;
+            margin-bottom: 20px;
+        }
+        
+        .upload-area h3 {
+            margin-bottom: 10px;
+            color: #c9d1d9;
+        }
+        
+        .upload-area p {
+            color: #8b949e;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            background: #238636;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn:hover {
+            background: #2ea043;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(46, 160, 67, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn:disabled {
+            background: #30363d;
+            color: #8b949e;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .btn-secondary {
+            background: #21262d;
+            border: 1px solid #30363d;
+        }
+        
+        .btn-secondary:hover {
+            background: #30363d;
+            border-color: #8b949e;
+        }
+        
+        .progress-container {
+            margin: 30px 0;
+            display: none;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .progress-bar {
+            height: 30px;
+            background: #21262d;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #30363d;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #238636, #2ea043);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .log-container {
+            background: #0d1117;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid #30363d;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .log-entry {
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #21262d;
+        }
+        
+        .log-time {
+            color: #8b949e;
+            margin-right: 10px;
+        }
+        
+        .log-info {
+            color: #58a6ff;
+        }
+        
+        .log-success {
+            color: #3fb950;
+        }
+        
+        .log-error {
+            color: #f85149;
+        }
+        
+        .result-container {
+            text-align: center;
+            padding: 40px 20px;
+            display: none;
+        }
+        
+        .success-icon {
+            font-size: 80px;
+            color: #3fb950;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .success-title {
+            color: #3fb950;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .file-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(88, 166, 255, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #58a6ff;
+        }
+        
+        .requirements {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #30363d;
+        }
+        
+        .requirements ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .requirements li {
+            margin-bottom: 10px;
+            color: #8b949e;
+        }
+        
+        .requirements li strong {
+            color: #c9d1d9;
+        }
+        
+        .permissions-container {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(13, 17, 23, 0.5);
+            border-radius: 10px;
+            border: 1px solid #30363d;
+        }
+        
+        .permission-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(33, 38, 45, 0.5);
+            border-radius: 8px;
+            border: 1px solid #30363d;
+            transition: all 0.3s ease;
+        }
+        
+        .permission-item:hover {
+            background: rgba(33, 38, 45, 0.8);
+            border-color: #58a6ff;
+        }
+        
+        .permission-info {
+            flex-grow: 1;
+        }
+        
+        .permission-name {
+            font-weight: bold;
+            color: #c9d1d9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .permission-desc {
+            color: #8b949e;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .permission-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+        }
+        
+        .permission-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #30363d;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: #238636;
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(30px);
+        }
+        
+        .floating-window-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            margin-top: 20px;
+            background: rgba(33, 38, 45, 0.5);
+            border-radius: 10px;
+            border: 1px solid #30363d;
+        }
+        
+        .floating-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .floating-info i {
+            font-size: 24px;
+            color: #58a6ff;
+        }
+        
+        .floating-desc {
+            color: #8b949e;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #30363d;
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(22, 27, 34, 0.95);
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: 1px solid #30363d;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #238636;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .nav-btn:hover {
+            background: #2ea043;
+            transform: scale(1.1);
+        }
+        
+        .settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .settings-content {
+            background: rgba(22, 27, 34, 0.95);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid #30363d;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .close-settings {
+            background: none;
+            border: none;
+            color: #8b949e;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-settings:hover {
+            color: #f85149;
+        }
+        
+        .developer-info {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(13, 17, 23, 0.5);
+            border-radius: 10px;
+            border: 1px solid #30363d;
+        }
+        
+        .developer-info h3 {
+            color: #58a6ff;
+            margin-bottom: 15px;
+        }
+        
+        .info-item {
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(33, 38, 45, 0.5);
+            border-radius: 8px;
+        }
+        
+        .info-label {
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
+        
+        .info-value {
+            color: #c9d1d9;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        .channel-btn {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            background: #58a6ff;
+        }
+        
+        .channel-btn:hover {
+            background: #4493ff;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .bottom-nav {
+                width: 90%;
+                justify-content: space-between;
+            }
+        }
+    </style>
 </head>
 <body>
-
-<div class="header">
-  <div class="logo"><i class="fas fa-bolt"></i></div>
-  <div class="nama">Arsalways</div>
-  <div class="tagline">ULTIMATE WhatsApp Spam Engine</div>
-</div>
-
-<div id="user-box">
-  <div>Pemakaian Anda: <span id="usage-count">0</span></div>
-  <div>Pengguna Online: <span id="online-count">0</span></div>
-</div>
-
-<div class="container">
-  <div class="input-group">
-    <label for="nomor"><i class="fas fa-phone-alt"></i> Nomor / URL Grup</label>
-    <input type="text" id="nomor" placeholder="Masukkan nomor atau URL grup">
-    <button id="pilih-mode" class="fitur-btn" style="width:100%;margin-top:10px;">Pilih Mode</button>
-    
-    <!-- Container untuk tombol WA & Grup -->
-    <div class="mode-container" id="mode-container">
-      <div class="mode-option" data-mode="wa">WA</div>
-      <div class="mode-option" data-mode="grup">Grup</div>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-mobile-alt"></i> HTML to APK Builder</h1>
+            <p class="subtitle">Unggah file HTML Anda dan bangun menjadi aplikasi Android APK dengan sekali klik</p>
+        </header>
+        
+        <main>
+            <div class="card" id="uploadCard">
+                <h2><i class="fas fa-cloud-upload-alt"></i> Unggah File HTML</h2>
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-file-code"></i>
+                    <h3>Klik atau seret file HTML Anda ke sini</h3>
+                    <p>Format yang didukung: .html, .zip (mengandung index.html)</p>
+                    <p>Ukuran file: Tidak dibatasi</p>
+                    <div class="btn" id="selectFileBtn">
+                        <i class="fas fa-folder-open"></i> Pilih File dari Penyimpanan
+                    </div>
+                </div>
+                
+                <div class="file-info" id="fileInfo" style="display: none;">
+                    <i class="fas fa-file-code" style="color: #58a6ff; font-size: 24px;"></i>
+                    <div>
+                        <strong id="fileName"></strong>
+                        <div id="fileSize" style="color: #8b949e; font-size: 0.9rem;"></div>
+                    </div>
+                </div>
+                
+                <div class="permissions-container">
+                    <h3><i class="fas fa-shield-alt"></i> Izin Aplikasi (Permissions)</h3>
+                    <p style="color: #8b949e; margin-bottom: 20px;">Pilih izin yang diperlukan aplikasi Anda:</p>
+                    
+                    <div class="permission-item">
+                        <div class="permission-info">
+                            <div class="permission-name"><i class="fas fa-wifi"></i> INTERNET</div>
+                            <div class="permission-desc">Akses koneksi internet untuk aplikasi</div>
+                        </div>
+                        <label class="permission-toggle">
+                            <input type="checkbox" id="permissionInternet" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="permission-item">
+                        <div class="permission-info">
+                            <div class="permission-name"><i class="fas fa-camera"></i> CAMERA</div>
+                            <div class="permission-desc">Akses kamera untuk mengambil foto atau video</div>
+                        </div>
+                        <label class="permission-toggle">
+                            <input type="checkbox" id="permissionCamera">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="permission-item">
+                        <div class="permission-info">
+                            <div class="permission-name"><i class="fas fa-microphone"></i> RECORD_AUDIO</div>
+                            <div class="permission-desc">Akses mikrofon untuk merekam audio</div>
+                        </div>
+                        <label class="permission-toggle">
+                            <input type="checkbox" id="permissionAudio">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="permission-item">
+                        <div class="permission-info">
+                            <div class="permission-name"><i class="fas fa-map-marker-alt"></i> ACCESS_FINE_LOCATION</div>
+                            <div class="permission-desc">Akses lokasi GPS yang presisi</div>
+                        </div>
+                        <label class="permission-toggle">
+                            <input type="checkbox" id="permissionLocation">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="permission-item">
+                        <div class="permission-info">
+                            <div class="permission-name"><i class="fas fa-sd-card"></i> WRITE_EXTERNAL_STORAGE</div>
+                            <div class="permission-desc">Izin menulis ke penyimpanan eksternal</div>
+                        </div>
+                        <label class="permission-toggle">
+                            <input type="checkbox" id="permissionStorage">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="floating-window-toggle">
+                    <div class="floating-info">
+                        <i class="fas fa-window-restore"></i>
+                        <div>
+                            <div class="permission-name">Mode Jendela Mengambang (Floating Window)</div>
+                            <div class="floating-desc">Aplikasi dapat berjalan dalam jendela mengambang di atas aplikasi lain</div>
+                        </div>
+                    </div>
+                    <label class="permission-toggle">
+                        <input type="checkbox" id="floatingWindow">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="requirements">
+                    <h3><i class="fas fa-info-circle"></i> Persyaratan Build APK</h3>
+                    <ul>
+                        <li>File utama harus bernama <strong>index.html</strong> (untuk file .zip)</li>
+                        <li>Pastikan semua resource (CSS, JS, gambar) menggunakan path relatif</li>
+                        <li>Build akan memakan waktu sekitar 30-60 detik</li>
+                        <li>APK yang dihasilkan kompatibel dengan Android 5.0+</li>
+                    </ul>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn" id="buildBtn" disabled>
+                        <i class="fas fa-cogs"></i> Mulai Build APK
+                    </button>
+                </div>
+            </div>
+            
+            <div class="card progress-container" id="progressContainer">
+                <h2><i class="fas fa-tasks"></i> Proses Build APK</h2>
+                <div class="progress-header">
+                    <span>Status: <span id="statusText">Mempersiapkan...</span></span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                
+                <div class="log-container" id="logContainer">
+                    <div class="log-entry">
+                        <span class="log-time">[00:00:00]</span>
+                        <span class="log-info">Memulai proses build APK...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card result-container" id="resultContainer">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2 class="success-title">Build Selesai!</h2>
+                <p>APK Anda telah berhasil dibuat dan siap untuk diunduh atau diinstal.</p>
+                <p>File: <strong>my-app-build-1.0.0.apk</strong> (Ukuran: ~4.2 MB)</p>
+                
+                <div class="action-buttons">
+                    <button class="btn" id="installBtn">
+                        <i class="fas fa-mobile-alt"></i> Instal APK
+                    </button>
+                    <button class="btn" id="downloadBtn">
+                        <i class="fas fa-download"></i> Unduh APK
+                    </button>
+                    <button class="btn btn-secondary" id="newBuildBtn">
+                        <i class="fas fa-redo"></i> Build Baru
+                    </button>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p><i class="fas fa-code"></i> Dibuat untuk GitHub Pages | HTML to APK Builder v2.0</p>
+            <p>Note: Ini adalah simulator build. Untuk build APK sesungguhnya, Anda memerlukan layanan backend seperti Capacitor atau Cordova.</p>
+        </footer>
     </div>
-    
-    <div class="warning" id="nomor-warning">Masukkan sesuai mode</div>
-  </div>
 
-  <div class="fitur-title">PILIH METODE SPAM:</div>
-  <div class="fitur-container">
-    <div class="fitur-btn" data-fitur="spam1">🔥 SPAM ACAK 1</div>
-    <div class="fitur-btn" data-fitur="spam2">💀 SPAM ACAK 2</div>
-    <div class="fitur-btn" data-fitur="spam3">👹 SPAM ACAK 3</div>
-    <div class="fitur-btn" data-fitur="spam4">🤖 SPAM ACAK 4</div>
-    <div class="fitur-btn" data-fitur="spam5">☠️ SPAM ACAK 5</div>
-    <div class="fitur-btn" data-fitur="custom">✏️ CUSTOM MODE</div>
-  </div>
-
-  <div class="pilih-fitur-label" id="label-fitur">Pilih Fitur → belum dipilih</div>
-  <div class="text-desc" id="text-desc">Pilih fitur di atas untuk mengaktifkan spam acak.</div>
-
-  <div class="input-group custom-input" id="custom-input">
-    <label for="custom-text"><i class="fas fa-edit"></i> Masukkan Teks Spam Custom:</label>
-    <textarea id="custom-text" placeholder="Tulis teks spam custom disini..."></textarea>
-  </div>
-
-  <div class="slider-group">
-    <label for="slider"><i class="fas fa-sliders-h"></i> JUMLAH SPAM: <span id="slider-value">1000</span>x</label>
-    <div class="slider-container">
-      <div class="slider-value" id="value-box">1000</div>
-      <input type="range" min="1" max="100" value="10" class="slider" id="slider">
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-btn" id="homeBtn" title="Beranda">
+            <i class="fas fa-home"></i>
+        </button>
+        <button class="nav-btn" id="settingsBtn" title="Pengaturan">
+            <i class="fas fa-cog"></i>
+        </button>
     </div>
-  </div>
 
-  <div class="info-box"><i class="fas fa-exclamation-triangle"></i> Slider menggandakan teks sebanyak yang ditentukan di atas.</div>
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2><i class="fas fa-cog"></i> Pengaturan</h2>
+                <button class="close-settings" id="closeSettings">&times;</button>
+            </div>
+            
+            <div class="developer-info">
+                <h3><i class="fas fa-user-cog"></i> DEVELOPER</h3>
+                <div class="info-item">
+                    <div class="info-label">Developer</div>
+                    <div class="info-value">Arsalways</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Dibuat Pada</div>
+                    <div class="info-value">21 Maret 2024</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Versi</div>
+                    <div class="info-value">2.0.0</div>
+                </div>
+                <button class="btn channel-btn" id="channelBtn">
+                    <i class="fab fa-youtube"></i> Saluran YouTube
+                </button>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <h3><i class="fas fa-info-circle"></i> Tentang Aplikasi</h3>
+                <p style="color: #8b949e; margin-top: 10px; text-align: center;">
+                    HTML to APK Builder adalah alat untuk mengonversi file HTML menjadi aplikasi Android APK. 
+                    Alat ini mensimulasikan proses build untuk demonstrasi.
+                </p>
+            </div>
+            
+            <div style="margin-top: 30px; text-align: center;">
+                <button class="btn btn-secondary" id="resetSettingsBtn">
+                    <i class="fas fa-redo"></i> Reset Pengaturan
+                </button>
+            </div>
+        </div>
+    </div>
 
-  <div class="url-preview" id="url-preview">
-    <strong>Preview URL WhatsApp:</strong><br>
-    <span id="url-text">https://wa.me/62XXXXXXXXXX?text=Spam+akan+muncul+disini...</span>
-  </div>
-
-  <button class="kirim-btn" id="kirim"><i class="fab fa-whatsapp"></i> BUKA WHATSAPP DENGAN SPAM</button>
-</div>
-
-<div class="footer">©2027 Arsalways Dark Engine | Spam acak sesuai pengaturan slider.</div>
-
-<script>
-// ===== Firebase Config =====
-const firebaseConfig = {
-  apiKey: "AIzaSyAF3B3_Bq-Q9ulQdxfXHkCBqMTIDlx0sqY",
-  authDomain: "panel-user-b78ff.firebaseapp.com",
-  databaseURL: "https://panel-user-b78ff-default-rtdb.firebaseio.com",
-  projectId: "panel-user-b78ff",
-  storageBucket: "panel-user-b78ff.firebasestorage.app",
-  messagingSenderId: "86797928744",
-  appId: "1:86797928744:web:cb85dd498c6cf3b659281d"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
-// ===== SISTEM CLEANUP ONLINE USERS =====
-// 1. Buat ID unik untuk sesi ini
-const userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-
-// 2. Referensi untuk user ini
-const userRef = db.ref("online_users/" + userId);
-
-// 3. Simpan waktu koneksi
-const userData = {
-  connectedAt: Date.now(),
-  lastSeen: Date.now(),
-  userAgent: navigator.userAgent
-};
-
-// 4. Set data user
-userRef.set(userData);
-
-// 5. Update lastSeen setiap 10 detik
-const updateInterval = setInterval(() => {
-  userRef.update({ lastSeen: Date.now() });
-}, 10000);
-
-// 6. Hapus user yang sudah offline lebih dari 30 detik
-const cleanupInterval = setInterval(() => {
-  const now = Date.now();
-  db.ref("online_users").once('value').then((snapshot) => {
-    const users = snapshot.val();
-    if (users) {
-      Object.keys(users).forEach(key => {
-        const user = users[key];
-        if (now - user.lastSeen > 30000) { // 30 detik
-          db.ref("online_users/" + key).remove();
+    <script>
+        // Elemen DOM
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = '.html,.zip';
+        fileInput.style.display = 'none';
+        document.body.appendChild(fileInput);
+        
+        const selectFileBtn = document.getElementById('selectFileBtn');
+        const buildBtn = document.getElementById('buildBtn');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const progressContainer = document.getElementById('progressContainer');
+        const resultContainer = document.getElementById('resultContainer');
+        const progressFill = document.getElementById('progressFill');
+        const progressPercent = document.getElementById('progressPercent');
+        const statusText = document.getElementById('statusText');
+        const logContainer = document.getElementById('logContainer');
+        const installBtn = document.getElementById('installBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const newBuildBtn = document.getElementById('newBuildBtn');
+        const homeBtn = document.getElementById('homeBtn');
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsModal = document.getElementById('settingsModal');
+        const closeSettings = document.getElementById('closeSettings');
+        const channelBtn = document.getElementById('channelBtn');
+        const resetSettingsBtn = document.getElementById('resetSettingsBtn');
+        const uploadCard = document.getElementById('uploadCard');
+        
+        // Permission toggles
+        const permissionInternet = document.getElementById('permissionInternet');
+        const permissionCamera = document.getElementById('permissionCamera');
+        const permissionAudio = document.getElementById('permissionAudio');
+        const permissionLocation = document.getElementById('permissionLocation');
+        const permissionStorage = document.getElementById('permissionStorage');
+        const floatingWindow = document.getElementById('floatingWindow');
+        
+        // State variables
+        let selectedFile = null;
+        let progress = 0;
+        let buildInterval = null;
+        
+        // Event Listeners
+        selectFileBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#238636';
+            uploadArea.style.background = 'rgba(35, 134, 54, 0.1)';
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '#58a6ff';
+            uploadArea.style.background = 'rgba(88, 166, 255, 0.05)';
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#58a6ff';
+            uploadArea.style.background = 'rgba(88, 166, 255, 0.05)';
+            
+            if (e.dataTransfer.files.length) {
+                handleFileSelect(e.dataTransfer.files[0]);
+            }
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                handleFileSelect(e.target.files[0]);
+            }
+        });
+        
+        buildBtn.addEventListener('click', startBuildProcess);
+        installBtn.addEventListener('click', simulateInstall);
+        downloadBtn.addEventListener('click', simulateDownload);
+        newBuildBtn.addEventListener('click', resetBuilder);
+        homeBtn.addEventListener('click', goToHome);
+        settingsBtn.addEventListener('click', openSettings);
+        closeSettings.addEventListener('click', closeSettingsModal);
+        channelBtn.addEventListener('click', goToChannel);
+        resetSettingsBtn.addEventListener('click', resetSettings);
+        
+        // Fungsi untuk menangani pemilihan file
+        function handleFileSelect(file) {
+            // Validasi file
+            const fileExtension = file.name.split('.').pop().toLowerCase();
+            
+            if (fileExtension !== 'html' && fileExtension !== 'zip') {
+                addLog('error', 'Format file tidak didukung. Harap unggah file HTML atau ZIP.');
+                return;
+            }
+            
+            // Tidak ada batasan ukuran file
+            
+            selectedFile = file;
+            
+            // Tampilkan informasi file
+            fileName.textContent = file.name;
+            fileSize.textContent = formatFileSize(file.size);
+            fileInfo.style.display = 'flex';
+            
+            // Aktifkan tombol build
+            buildBtn.disabled = false;
+            
+            addLog('info', `File "${file.name}" berhasil dipilih.`);
         }
-      });
-    }
-  });
-}, 15000); // Cek setiap 15 detik
-
-// 7. Event listener untuk hapus user saat tab/browser ditutup
-window.addEventListener('beforeunload', () => {
-  clearInterval(updateInterval);
-  clearInterval(cleanupInterval);
-  userRef.remove();
-});
-
-// 8. Update tampilan jumlah pengguna online
-const onlineRef = db.ref("online_users");
-onlineRef.on("value", snap => {
-  const count = snap.numChildren();
-  document.getElementById("online-count").innerText = count;
-});
-
-// ===== Usage Counter =====
-let usageCount = parseInt(localStorage.getItem("usageCount")||"0");
-document.getElementById("usage-count").innerText = usageCount;
-
-// ===== Spam List =====
-const spamList = [
-  "w⃟ j⃟ [̲̅Z̲̅][̲̅A̲̅][̲̅L̲̅][̲̅G̲̅][̲̅O̲̅] ̧̡̢̛̰̹̤͍͔͗͌̎[̛̤͉̱̻͈͈͉̰̉́̏̎͊͗[̛͖̭̞͉̰̜̝̉͗̃̿͆̚ ̛͇͈̳̝͕̞͎̀͋̐̎̊̒[̧̛̪̗͇̤͉̿͛̈̓͐̕͜[̗̲̙̪̪̹̱̉̓̈̓̓̕͝ ̛̦̘̱̻̩̻͎̾̈̌̂̿̐[̻͎̺̘͖̙̳̂̔̔̌͐̔̕[̢̛̦̬̦̝̫̓̽̊͒̈́̅͜ ̎͐̍̓̓̈́̾̐̇̿̆̎͆̽̈́͆̆͛̓͐̇̿̍̓̉̈́̈́̓̒͐̈́͒͛̈́̽̾̓̒̿̾̉̈́̓͆̽̉̽̊̊̓̓̉̓̐̓̊̿̽̿̈́̽͛̓̈́̐̿͛̐̓̽͛̿̓͛̐̽̓̿̽̐̽̓̿̐̽̓̿̐̽̿̓̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̕̕̚̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕͝͝͝͝͝͝͝͝͝[̲̅Z̲̅][̲̅A̲̅][̲̅L̲̅][̲̅G̲̅][̲̅O̲̅] ̧̡̢̛̰̹̤͍͔͗͌̎[̛̤͉̱̻͈͈͉̰̉́̏̎͊͗[̛͖̭̞͉̰̜̝̉͗̃̿͆̚ ̛͇͈̳̝͕̞͎̀͋̐̎̊̒[̧̛̪̗͇̤͉̿͛̈̓͐̕͜[̗̲̙̪̪̹̱̉̓̈̓̓̕͝ ̛̦̘̱̻̩̻͎̾̈̌̂̿̐[̻͎̺̘͖̙̳̂̔̔̌͐̔̕[̢̛̦̬̦̝̫̓̽̊͒̈́̅͜ ̎͐̍̓̓̈́̾̐̇̿̆̎͆̽̈́͆̆͛̓͐̇̿̍̓̉̈́̈́̓̒͐̈́͒͛̈́̽̾̓̒̿̾̉̈́̓͆̽̉̽̊̊̓̓̉̓̐̓̊̿̽̿̈́̽͛̓̈́̐̿͛̐̓̽͛̿̓͛̐̽̓̿̽̐̽̓̿̐̽̓̿̐̽̿̓̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̕̕̚̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕͝͝͝͝͝͝͝͝͝j⃟ w⃟ j⃟ w⃟ j⃟ s⃟ h⃟ j⃟ s⃟ ",
-  "AOWKW[̲̅Z̲̅][̲̅A̲̅][̲̅L̲̅][̲̅G̲̅][̲̅O̲̅] ̧̡̢̛̰̹̤͍͔͗͌̎[̛̤͉̱̻͈͈͉̰̉́̏̎͊͗[̛͖̭̞͉̰̜̝̉͗̃̿͆̚ ̛͇͈̳̝͕̞͎̀͋̐̎̊̒[̧̛̪̗͇̤͉̿͛̈̓͐̕͜[̗̲̙̪̪̹̱̉̓̈̓̓̕͝ ̛̦̘̱̻̩̻͎̾̈̌̂̿̐[̻͎̺̘͖̙̳̂̔̔̌͐̔̕[̢̛̦̬̦̝̫̓̽̊͒̈́̅͜ ̎͐̍̓̓̈́̾̐̇̿̆̎͆̽̈́͆̆͛̓͐̇̿̍̓̉̈́̈́̓̒͐̈́͒͛̈́̽̾̓̒̿̾̉̈́̓͆̽̉̽̊̊̓̓̉̓̐̓̊̿̽̿̈́̽͛̓̈́̐̿͛̐̓̽͛̿̓͛̐̽̓̿̽̐̽̓̿̐̽̓̿̐̽̿̓̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̕̕̚̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕͝͝͝͝͝͝͝͝͝[̲̅Z̲̅][̲̅A̲̅][̲̅L̲̅][̲̅G̲̅][̲̅O̲̅] ̧̡̢̛̰̹̤͍͔͗͌̎[̛̤͉̱̻͈͈͉̰̉́̏̎͊͗[̛͖̭̞͉̰̜̝̉͗̃̿͆̚ ̛͇͈̳̝͕̞͎̀͋̐̎̊̒[̧̛̪̗͇̤͉̿͛̈̓͐̕͜[̗̲̙̪̪̹̱̉̓̈̓̓̕͝ ̛̦̘̱̻̩̻͎̾̈̌̂̿̐[̻͎̺̘͖̙̳̂̔̔̌͐̔̕[̢̛̦̬̦̝̫̓̽̊͒̈́̅͜ ̎͐̍̓̓̈́̾̐̇̿̆̎͆̽̈́͆̆͛̓͐̇̿̍̓̉̈́̈́̓̒͐̈́͒͛̈́̽̾̓̒̿̾̉̈́̓͆̽̉̽̊̊̓̓̉̓̐̓̊̿̽̿̈́̽͛̓̈́̐̿͛̐̓̽͛̿̓͛̐̽̓̿̽̐̽̓̿̐̽̓̿̐̽̿̓̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̕̕̚̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕͝͝͝͝͝͝͝͝͝[̲̅Z̲̅][̲̅A̲̅][̲̅L̲̅][̲̅G̲̅][̲̅O̲̅] ̧̡̢̛̰̹̤͍͔͗͌̎[̛̤͉̱̻͈͈͉̰̉́̏̎͊͗[̛͖̭̞͉̰̜̝̉͗̃̿͆̚ ̛͇͈̳̝͕̞͎̀͋̐̎̊̒[̧̛̪̗͇̤͉̿͛̈̓͐̕͜[̗̲̙̪̪̹̱̉̓̈̓̓̕͝ ̛̦̘̱̻̩̻͎̾̈̌̂̿̐[̻͎̺̘͖̙̳̂̔̔̌͐̔̕[̢̛̦̬̦̝̫̓̽̊͒̈́̅͜ ̎͐̍̓̓̈́̾̐̇̿̆̎͆̽̈́͆̆͛̓͐̇̿̍̓̉̈́̈́̓̒͐̈́͒͛̈́̽̾̓̒̿̾̉̈́̓͆̽̉̽̊̊̓̓̉̓̐̓̊̿̽̿̈́̽͛̓̈́̐̿͛̐̓̽͛̿̓͛̐̽̓̿̽̐̽̓̿̐̽̓̿̐̽̿̓̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̕̕̚̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕͝͝͝͝͝͝͝͝͝KWK MEMEK ASU BABI BANGSAT",
-  "AN[̲̅Z̲̅][̲̅A̲̅][̲̅L̲̅][̲̅G̲̅][̲̅O̲̅] ̧̡̢̛̰̹̤͍͔͗͌̎[̛̤͉̱̻͈͈͉̰̉́̏̎͊͗[̛͖̭̞͉̰̜̝̉͗̃̿͆̚ ̛͇͈̳̝͕̞͎̀͋̐̎̊̒[̧̛̪̗͇̤͉̿͛̈̓͐̕͜[̗̲̙̪̪̹̱̉̓̈̓̓̕͝ ̛̦̘̱̻̩̻͎̾̈̌̂̿̐[̻͎̺̘͖̙̳̂̔̔̌͐̔̕[̢̛̦̬̦̝̫̓̽̊͒̈́̅͜ ̎͐̍̓̓̈́̾̐̇̿̆̎͆̽̈́͆̆͛̓͐̇̿̍̓̉̈́̈́̓̒͐̈́͒͛̈́̽̾̓̒̿̾̉̈́̓͆̽̉̽̊̊̓̓̉̓̐̓̊̿̽̿̈́̽͛̓̈́̐̿͛̐̓̽͛̿̓͛̐̽̓̿̽̐̽̓̿̐̽̓̿̐̽̿̓̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̕̕̚̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕͝͝͝͝͝͝͝͝͝JING LU [̲̅Z̲̅][̲̅A̲̅][̲̅L̲̅][̲̅G̲̅][̲̅O̲̅] ̧̡̢̛̰̹̤͍͔͗͌̎[̛̤͉̱̻͈͈͉̰̉́̏̎͊͗[̛͖̭̞͉̰̜̝̉͗̃̿͆̚ ̛͇͈̳̝͕̞͎̀͋̐̎̊̒[̧̛̪̗͇̤͉̿͛̈̓͐̕͜[̗̲̙̪̪̹̱̉̓̈̓̓̕͝ ̛̦̘̱̻̩̻͎̾̈̌̂̿̐[̻͎̺̘͖̙̳̂̔̔̌͐̔̕[̢̛̦̬̦̝̫̓̽̊͒̈́̅͜ ̎͐̍̓̓̈́̾̐̇̿̆̎͆̽̈́͆̆͛̓͐̇̿̍̓̉̈́̈́̓̒͐̈́͒͛̈́̽̾̓̒̿̾̉̈́̓͆̽̉̽̊̊̓̓̉̓̐̓̊̿̽̿̈́̽͛̓̈́̐̿͛̐̓̽͛̿̓͛̐̽̓̿̽̐̽̓̿̐̽̓̿̐̽̿̓̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̕̕̚̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕͝͝͝͝͝͝͝͝͝BANGSAT KONTOL MEMEK",
-  "G[̲̅Z̲̅][̲̅A̲̅][̲̅L̲̅][̲̅G̲̅][̲̅O̲̅] ̧̡̢̛̰̹̤͍͔͗͌̎[̛̤͉̱̻͈͈͉̰̉́̏̎͊͗[̛͖̭̞͉̰̜̝̉͗̃̿͆̚ ̛͇͈̳̝͕̞͎̀͋̐̎̊̒[̧̛̪̗͇̤͉̿͛̈̓͐̕͜[̗̲̙̪̪̹̱̉̓̈̓̓̕͝ ̛̦̘̱̻̩̻͎̾̈̌̂̿̐[̻͎̺̘͖̙̳̂̔̔̌͐̔̕[̢̛̦̬̦̝̫̓̽̊͒̈́̅͜ ̎͐̍̓̓̈́̾̐̇̿̆̎͆̽̈́͆̆͛̓͐̇̿̍̓̉̈́̈́̓̒͐̈́͒͛̈́̽̾̓̒̿̾̉̈́̓͆̽̉̽̊̊̓̓̉̓̐̓̊̿̽̿̈́̽͛̓̈́̐̿͛̐̓̽͛̿̓͛̐̽̓̿̽̐̽̓̿̐̽̓̿̐̽̿̓̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̕̕̚̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕͝͝͝͝͝͝͝͝͝AUS[̲̅Z̲̅][̲̅A̲̅][̲̅L̲̅][̲̅G̲̅][̲̅O̲̅] ̧̡̢̛̰̹̤͍͔͗͌̎[̛̤͉̱̻͈͈͉̰̉́̏̎͊͗[̛͖̭̞͉̰̜̝̉͗̃̿͆̚ ̛͇͈̳̝͕̞͎̀͋̐̎̊̒[̧̛̪̗͇̤͉̿͛̈̓͐̕͜[̗̲̙̪̪̹̱̉̓̈̓̓̕͝ ̛̦̘̱̻̩̻͎̾̈̌̂̿̐[̻͎̺̘͖̙̳̂̔̔̌͐̔̕[̢̛̦̬̦̝̫̓̽̊͒̈́̅͜ ̎͐̍̓̓̈́̾̐̇̿̆̎͆̽̈́͆̆͛̓͐̇̿̍̓̉̈́̈́̓̒͐̈́͒͛̈́̽̾̓̒̿̾̉̈́̓͆̽̉̽̊̊̓̓̉̓̐̓̊̿̽̿̈́̽͛̓̈́̐̿͛̐̓̽͛̿̓͛̐̽̓̿̽̐̽̓̿̐̽̓̿̐̽̿̓̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̕̕̚̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕͝͝͝͝͝͝͝͝͝A[̲̅Z̲̅][̲̅A̲̅][̲̅L̲̅][̲̅G̲̅][̲̅O̲̅] ̧̡̢̛̰̹̤͍͔͗͌̎[̛̤͉̱̻͈͈͉̰̉́̏̎͊͗[̛͖̭̞͉̰̜̝̉͗̃̿͆̚ ̛͇͈̳̝͕̞͎̀͋̐̎̊̒[̧̛̪̗͇̤͉̿͛̈̓͐̕͜[̗̲̙̪̪̹̱̉̓̈̓̓̕͝ ̛̦̘̱̻̩̻͎̾̈̌̂̿̐[̻͎̺̘͖̙̳̂̔̔̌͐̔̕[̢̛̦̬̦̝̫̓̽̊͒̈́̅͜ ̎͐̍̓̓̈́̾̐̇̿̆̎͆̽̈́͆̆͛̓͐̇̿̍̓̉̈́̈́̓̒͐̈́͒͛̈́̽̾̓̒̿̾̉̈́̓͆̽̉̽̊̊̓̓̉̓̐̓̊̿̽̿̈́̽͛̓̈́̐̿͛̐̓̽͛̿̓͛̐̽̓̿̽̐̽̓̿̐̽̓̿̐̽̿̓̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̕̕̚̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕͝͝͝͝͝͝͝͝͝H SOK ASIK LU ANJING",
-  "BA[̲̅Z̲̅][̲̅A̲̅][̲̅L̲̅][̲̅G̲̅][̲̅O̲̅] ̧̡̢̛̰̹̤͍͔͗͌̎[̛̤͉̱̻͈͈͉̰̉́̏̎͊͗[̛͖̭̞͉̰̜̝̉͗̃̿͆̚ ̛͇͈̳̝͕̞͎̀͋̐̎̊̒[̧̛̪̗͇̤͉̿͛̈̓͐̕͜[̗̲̙̪̪̹̱̉̓̈̓̓̕͝ ̛̦̘̱̻̩̻͎̾̈̌̂̿̐[̻͎̺̘͖̙̳̂̔̔̌͐̔̕[̢̛̦̬̦̝̫̓̽̊͒̈́̅͜ ̎͐̍̓̓̈́̾̐̇̿̆̎͆̽̈́͆̆͛̓͐̇̿̍̓̉̈́̈́̓̒͐̈́͒͛̈́̽̾̓̒̿̾̉̈́̓͆̽̉̽̊̊̓̓̉̓̐̓̊̿̽̿̈́̽͛̓̈́̐̿͛̐̓̽͛̿̓͛̐̽̓̿̽̐̽̓̿̐̽̓̿̐̽̿̓̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̕̕̚̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕͝͝͝͝͝͝͝͝͝[̲̅Z̲̅][̲̅A̲̅][̲̅L̲̅][̲̅G̲̅][̲̅O̲̅] ̧̡̢̛̰̹̤͍͔͗͌̎[̛̤͉̱̻͈͈͉̰̉́̏̎͊͗[̛͖̭̞͉̰̜̝̉͗̃̿͆̚ ̛͇͈̳̝͕̞͎̀͋̐̎̊̒[̧̛̪̗͇̤͉̿͛̈̓͐̕͜[̗̲̙̪̪̹̱̉̓̈̓̓̕͝ ̛̦̘̱̻̩̻͎̾̈̌̂̿̐[̻͎̺̘͖̙̳̂̔̔̌͐̔̕[̢̛̦̬̦̝̫̓̽̊͒̈́̅͜ ̎͐̍̓̓̈́̾̐̇̿̆̎͆̽̈́͆̆͛̓͐̇̿̍̓̉̈́̈́̓̒͐̈́͒͛̈́̽̾̓̒̿̾̉̈́̓͆̽̉̽̊̊̓̓̉̓̐̓̊̿̽̿̈́̽͛̓̈́̐̿͛̐̓̽͛̿̓͛̐̽̓̿̽̐̽̓̿̐̽̓̿̐̽̿̓̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̕̕̚̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕͝͝͝͝͝͝͝͝͝COT LU [̲̅Z̲̅][̲̅A̲̅][̲̅L̲̅][̲̅G̲̅][̲̅O̲̅] ̧̡̢̛̰̹̤͍͔͗͌̎[̛̤͉̱̻͈͈͉̰̉́̏̎͊͗[̛͖̭̞͉̰̜̝̉͗̃̿͆̚ ̛͇͈̳̝͕̞͎̀͋̐̎̊̒[̧̛̪̗͇̤͉̿͛̈̓͐̕͜[̗̲̙̪̪̹̱̉̓̈̓̓̕͝ ̛̦̘̱̻̩̻͎̾̈̌̂̿̐[̻͎̺̘͖̙̳̂̔̔̌͐̔̕[̢̛̦̬̦̝̫̓̽̊͒̈́̅͜ ̎͐̍̓̓̈́̾̐̇̿̆̎͆̽̈́͆̆͛̓͐̇̿̍̓̉̈́̈́̓̒͐̈́͒͛̈́̽̾̓̒̿̾̉̈́̓͆̽̉̽̊̊̓̓̉̓̐̓̊̿̽̿̈́̽͛̓̈́̐̿͛̐̓̽͛̿̓͛̐̽̓̿̽̐̽̓̿̐̽̓̿̐̽̿̓̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̕̕̚̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕͝͝͝͝͝͝͝͝͝[̲̅Z̲̅][̲̅A̲̅][̲̅L̲̅][̲̅G̲̅][̲̅O̲̅] ̧̡̢̛̰̹̤͍͔͗͌̎[̛̤͉̱̻͈͈͉̰̉́̏̎͊͗[̛͖̭̞͉̰̜̝̉͗̃̿͆̚ ̛͇͈̳̝͕̞͎̀͋̐̎̊̒[̧̛̪̗͇̤͉̿͛̈̓͐̕͜[̗̲̙̪̪̹̱̉̓̈̓̓̕͝ ̛̦̘̱̻̩̻͎̾̈̌̂̿̐[̻͎̺̘͖̙̳̂̔̔̌͐̔̕[̢̛̦̬̦̝̫̓̽̊͒̈́̅͜ ̎͐̍̓̓̈́̾̐̇̿̆̎͆̽̈́͆̆͛̓͐̇̿̍̓̉̈́̈́̓̒͐̈́͒͛̈́̽̾̓̒̿̾̉̈́̓͆̽̉̽̊̊̓̓̉̓̐̓̊̿̽̿̈́̽͛̓̈́̐̿͛̐̓̽͛̿̓͛̐̽̓̿̽̐̽̓̿̐̽̓̿̐̽̿̓̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̕̕̚̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕͝͝͝͝͝͝͝͝͝AJA [̲̅Z̲̅][̲̅A̲̅][̲̅L̲̅][̲̅G̲̅][̲̅O̲̅] ̧̡̢̛̰̹̤͍͔͗͌̎[̛̤͉̱̻͈͈͉̰̉́̏̎͊͗[̛͖̭̞͉̰̜̝̉͗̃̿͆̚ ̛͇͈̳̝͕̞͎̀͋̐̎̊̒[̧̛̪̗͇̤͉̿͛̈̓͐̕͜[̗̲̙̪̪̹̱̉̓̈̓̓̕͝ ̛̦̘̱̻̩̻͎̾̈̌̂̿̐[̻͎̺̘͖̙̳̂̔̔̌͐̔̕[̢̛̦̬̦̝̫̓̽̊͒̈́̅͜ ̎͐̍̓̓̈́̾̐̇̿̆̎͆̽̈́͆̆͛̓͐̇̿̍̓̉̈́̈́̓̒͐̈́͒͛̈́̽̾̓̒̿̾̉̈́̓͆̽̉̽̊̊̓̓̉̓̐̓̊̿̽̿̈́̽͛̓̈́̐̿͛̐̓̽͛̿̓͛̐̽̓̿̽̐̽̓̿̐̽̓̿̐̽̿̓̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̕̕̚̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕͝͝͝͝͝͝͝͝͝GA [̲̅Z̲̅][̲̅A̲̅][̲̅L̲̅][̲̅G̲̅][̲̅O̲̅] ̧̡̢̛̰̹̤͍͔͗͌̎[̛̤͉̱̻͈͈͉̰̉́̏̎͊͗[̛͖̭̞͉̰̜̝̉͗̃̿͆̚ ̛͇͈̳̝͕̞͎̀͋̐̎̊̒[̧̛̪̗͇̤͉̿͛̈̓͐̕͜[̗̲̙̪̪̹̱̉̓̈̓̓̕͝ ̛̦̘̱̻̩̻͎̾̈̌̂̿̐[̻͎̺̘͖̙̳̂̔̔̌͐̔̕[̢̛̦̬̦̝̫̓̽̊͒̈́̅͜ ̎͐̍̓̓̈́̾̐̇̿̆̎͆̽̈́͆̆͛̓͐̇̿̍̓̉̈́̈́̓̒͐̈́͒͛̈́̽̾̓̒̿̾̉̈́̓͆̽̉̽̊̊̓̓̉̓̐̓̊̿̽̿̈́̽͛̓̈́̐̿͛̐̓̽͛̿̓͛̐̽̓̿̽̐̽̓̿̐̽̓̿̐̽̿̓̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̐̽̓̿̕̕̚̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕̕͝͝͝͝͝͝͝͝͝JELAS BANGSAT"
-];
-
-// ===== Variabel DOM =====
-const semuaTombol=document.querySelectorAll('.fitur-btn');
-const labelFitur=document.getElementById('label-fitur');
-const textDesc=document.getElementById('text-desc');
-const slider=document.getElementById('slider');
-const sliderValue=document.getElementById('slider-value');
-const valueBox=document.getElementById('value-box');
-const kirimBtn=document.getElementById('kirim');
-const customInput=document.getElementById('custom-input');
-const customText=document.getElementById('custom-text');
-const urlText=document.getElementById('url-text');
-const nomorInput=document.getElementById('nomor');
-const pilihBtn=document.getElementById("pilih-mode");
-const modeContainer=document.getElementById("mode-container");
-const modeOptions=document.querySelectorAll(".mode-option");
-
-let fiturAktif=null;
-let modeSelected=null;
-
-// ===== Tombol Pilih Mode =====
-pilihBtn.addEventListener("click",()=>{
-    modeContainer.style.display = modeContainer.style.display === 'flex' ? 'none' : 'flex';
-});
-
-// ===== Pilih Mode WA atau Grup =====
-modeOptions.forEach(option=>{
-    option.addEventListener("click",()=>{
-        // Hapus active dari semua mode
-        modeOptions.forEach(opt=>opt.classList.remove('active'));
-        // Tambah active ke mode yang dipilih
-        option.classList.add('active');
         
-        modeSelected=option.dataset.mode;
-        pilihBtn.innerText=`Mode: ${modeSelected.toUpperCase()}`;
-        modeContainer.style.display = 'none';
+        // Fungsi untuk memulai proses build
+        function startBuildProcess() {
+            if (!selectedFile) return;
+            
+            // Tampilkan izin yang dipilih
+            const permissions = [];
+            if (permissionInternet.checked) permissions.push('INTERNET');
+            if (permissionCamera.checked) permissions.push('CAMERA');
+            if (permissionAudio.checked) permissions.push('RECORD_AUDIO');
+            if (permissionLocation.checked) permissions.push('ACCESS_FINE_LOCATION');
+            if (permissionStorage.checked) permissions.push('WRITE_EXTERNAL_STORAGE');
+            
+            addLog('info', `Izin yang dipilih: ${permissions.join(', ') || 'Tidak ada'}`);
+            addLog('info', `Mode Floating Window: ${floatingWindow.checked ? 'Aktif' : 'Nonaktif'}`);
+            
+            // Reset state
+            progress = 0;
+            progressFill.style.width = '0%';
+            progressPercent.textContent = '0%';
+            statusText.textContent = 'Mempersiapkan...';
+            logContainer.innerHTML = '<div class="log-entry"><span class="log-time">[00:00:00]</span><span class="log-info">Memulai proses build APK...</span></div>';
+            
+            // Tampilkan progress container
+            progressContainer.style.display = 'block';
+            resultContainer.style.display = 'none';
+            logContainer.style.display = 'block';
+            
+            // Sembunyikan card upload
+            uploadCard.style.display = 'none';
+            
+            // Simulasi proses build
+            buildInterval = setInterval(updateBuildProgress, 200);
+            
+            addLog('info', 'Memulai proses build APK...');
+        }
         
-        // Update placeholder berdasarkan mode
-        nomorInput.placeholder = modeSelected==='wa'?"Contoh: 8812345678":"Contoh URL Grup: https://chat.whatsapp.com/XXXXX";
-        updateUrlPreview();
-    });
-});
-
-// ===== Pilih Fitur =====
-semuaTombol.forEach(btn=>{
-    btn.addEventListener('click',()=>{
-        semuaTombol.forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        fiturAktif=btn.dataset.fitur;
-        labelFitur.innerHTML=`<i class="fas fa-check"></i> Fitur Aktif: <strong>${btn.textContent}</strong>`;
-        if(fiturAktif==='custom'){customInput.style.display='block';textDesc.innerHTML='Gunakan textarea untuk menulis spam custom.';}
-        else{customInput.style.display='none';textDesc.innerHTML='Spam acak akan digenerate dari list.';}
-        updateUrlPreview();
-    });
-});
-
-// ===== Slider & Input =====
-slider.addEventListener('input',()=>{
-    const sliderVal = parseInt(slider.value);
-    const displayValue = sliderVal * 100; // Untuk tampilan dikali 100
-    sliderValue.textContent = displayValue;
-    valueBox.textContent = displayValue;
-    updateUrlPreview();
-});
-
-nomorInput.addEventListener('input',updateUrlPreview);
-customText.addEventListener('input',updateUrlPreview);
-
-// ===== Update Preview =====
-function getRandomSpamFromList(){return spamList[Math.floor(Math.random()*spamList.length)];}
-
-function updateUrlPreview(){
-    const nomor=nomorInput.value.trim();
-    if(!nomor || !fiturAktif || !modeSelected) return;
-    
-    let payload = fiturAktif==='custom'?(customText.value.trim()||'...'):getRandomSpamFromList();
-    
-    // Preview tetap pendek (hanya asli)
-    let previewPayload = payload.substring(0, 100);
-    if (previewPayload.length < payload.length) {
-        previewPayload += "...";
-    }
-    
-    let encoded = encodeURIComponent(previewPayload);
-    let nomorFinal=nomor;
-    if(modeSelected==='wa'){
-        if(nomor.match(/^0/)){nomorFinal='62'+nomor.replace(/^0+/,'');}
-        else if(!nomor.match(/^[0-9]+$/)){nomorFinal=nomor;}
-        else {nomorFinal='62'+nomor;}
-    }
-    const waUrl=modeSelected==='grup'?nomorFinal:`https://wa.me/${nomorFinal}?text=${encoded}`;
-    urlText.textContent=waUrl;
-}
-
-// ===== Kirim =====
-kirimBtn.addEventListener('click',()=>{
-    const nomor=nomorInput.value.trim();
-    if(!nomor){alert('Masukkan nomor/grup!');return;}
-    if(!fiturAktif){alert('Pilih fitur dulu!');return;}
-    if(!modeSelected){alert('Pilih mode dulu!');return;}
-
-    let payload = fiturAktif==='custom'?(customText.value.trim()||'...'):getRandomSpamFromList();
-    
-    // GANDAKAN TEKS SESUAI SLIDER (full)
-    let repeatCount = parseInt(slider.value) * 100; // Kalikan dengan 100 untuk penggandaan
-    
-    // Batasi maksimum 50000 karakter agar tidak error
-    let finalPayload = payload.repeat(repeatCount).substring(0, 50000);
-    const encoded = encodeURIComponent(finalPayload);
-
-    let nomorFinal=nomor;
-    if(modeSelected==='wa'){
-        if(nomor.match(/^0/)){nomorFinal='62'+nomor.replace(/^0+/,'');}
-        else if(!nomor.match(/^[0-9]+$/)){nomorFinal=nomor;}
-        else {nomorFinal='62'+nomor;}
-    }
-
-    const waUrl=modeSelected==='grup'?nomorFinal:`https://wa.me/${nomorFinal}?text=${encoded}`;
-    window.open(waUrl,'_blank');
-
-    // Tambah usage
-    usageCount++;
-    localStorage.setItem('usageCount',usageCount);
-    document.getElementById("usage-count").innerText=usageCount;
-});
-</script>
+        // Fungsi untuk update progress build
+        function updateBuildProgress() {
+            progress += 1;
+            
+            if (progress <= 100) {
+                progressFill.style.width = `${progress}%`;
+                progressPercent.textContent = `${progress}%`;
+                
+                // Update status berdasarkan progress
+                if (progress < 10) {
+                    statusText.textContent = 'Mempersiapkan file...';
+                } else if (progress < 20) {
+                    statusText.textContent = 'Membaca konfigurasi izin...';
+                } else if (progress < 40) {
+                    statusText.textContent = 'Mengekstrak konten HTML...';
+                } else if (progress < 60) {
+                    statusText.textContent = 'Membuat konfigurasi Android...';
+                } else if (progress < 80) {
+                    statusText.textContent = 'Mengompilasi sumber daya...';
+                } else if (progress < 95) {
+                    statusText.textContent = 'Membangun APK dengan izin terpilih...';
+                } else {
+                    statusText.textContent = 'Menyelesaikan build...';
+                }
+                
+                // Tambahkan log acak untuk simulasi
+                if (progress % 10 === 0) {
+                    const logMessages = [
+                        'Memproses file HTML...',
+                        'Menambahkan konfigurasi izin...',
+                        'Mengonfigurasi AndroidManifest.xml...',
+                        'Mengompilasi asset aplikasi...',
+                        'Mengoptimasi kode...',
+                        'Menandatangani APK...',
+                        'Menyelesaikan build...'
+                    ];
+                    
+                    const randomMsg = logMessages[Math.floor(Math.random() * logMessages.length)];
+                    addLog('info', randomMsg);
+                }
+                
+                // Log khusus untuk floating window
+                if (progress === 75 && floatingWindow.checked) {
+                    addLog('info', 'Mengaktifkan mode Floating Window...');
+                }
+            }
+            
+            // Ketika selesai
+            if (progress >= 100) {
+                clearInterval(buildInterval);
+                statusText.textContent = 'Build selesai!';
+                
+                // Tampilkan pesan sukses setelah delay
+                setTimeout(() => {
+                    progressContainer.style.display = 'none';
+                    resultContainer.style.display = 'block';
+                    addLog('success', 'Build APK berhasil diselesaikan!');
+                    
+                    // Tampilkan ringkasan izin di hasil
+                    const permissionsSummary = document.createElement('p');
+                    permissionsSummary.style.color = '#8b949e';
+                    permissionsSummary.style.marginTop = '10px';
+                    
+                    const activePermissions = [];
+                    if (permissionInternet.checked) activePermissions.push('Internet');
+                    if (permissionCamera.checked) activePermissions.push('Kamera');
+                    if (permissionAudio.checked) activePermissions.push('Audio');
+                    if (permissionLocation.checked) activePermissions.push('Lokasi');
+                    if (permissionStorage.checked) activePermissions.push('Penyimpanan');
+                    
+                    permissionsSummary.textContent = `Izin aktif: ${activePermissions.join(', ') || 'Tidak ada'}`;
+                    if (floatingWindow.checked) {
+                        permissionsSummary.textContent += ' | Floating Window: Aktif';
+                    }
+                    
+                    resultContainer.insertBefore(permissionsSummary, resultContainer.querySelector('.action-buttons'));
+                }, 1000);
+            }
+        }
+        
+        // Fungsi untuk simulasi instalasi
+        function simulateInstall() {
+            addLog('info', 'Menginstal APK... (simulasi)');
+            
+            // Buat dialog instalasi simulasi
+            const installDialog = document.createElement('div');
+            installDialog.style.position = 'fixed';
+            installDialog.style.top = '50%';
+            installDialog.style.left = '50%';
+            installDialog.style.transform = 'translate(-50%, -50%)';
+            installDialog.style.background = 'rgba(22, 27, 34, 0.95)';
+            installDialog.style.padding = '30px';
+            installDialog.style.borderRadius = '15px';
+            installDialog.style.border = '1px solid #30363d';
+            installDialog.style.zIndex = '3000';
+            installDialog.style.textAlign = 'center';
+            installDialog.style.minWidth = '300px';
+            
+            installDialog.innerHTML = `
+                <h3 style="color: #58a6ff; margin-bottom: 20px;"><i class="fas fa-mobile-alt"></i> Instal Aplikasi</h3>
+                <p style="color: #c9d1d9; margin-bottom: 20px;">Apakah Anda ingin menginstal aplikasi ini?</p>
+                <p style="color: #8b949e; font-size: 0.9rem; margin-bottom: 25px;">my-app-build-1.0.0.apk</p>
+                <div style="display: flex; gap: 15px; justify-content: center;">
+                    <button id="cancelInstall" style="background: #30363d; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">Batal</button>
+                    <button id="confirmInstall" style="background: #238636; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">Instal</button>
+                </div>
+            `;
+            
+            document.body.appendChild(installDialog);
+            
+            // Tambahkan overlay
+            const overlay = document.createElement('div');
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.background = 'rgba(0, 0, 0, 0.7)';
+            overlay.style.zIndex = '2999';
+            document.body.appendChild(overlay);
+            
+            // Event listeners untuk dialog
+            document.getElementById('cancelInstall').addEventListener('click', () => {
+                document.body.removeChild(installDialog);
+                document.body.removeChild(overlay);
+                addLog('info', 'Instalasi dibatalkan.');
+            });
+            
+            document.getElementById('confirmInstall').addEventListener('click', () => {
+                document.body.removeChild(installDialog);
+                document.body.removeChild(overlay);
+                addLog('success', 'Aplikasi berhasil diinstal (simulasi).');
+                alert('Aplikasi berhasil diinstal! (simulasi)');
+            });
+            
+            // Tutup saat klik overlay
+            overlay.addEventListener('click', () => {
+                document.body.removeChild(installDialog);
+                document.body.removeChild(overlay);
+                addLog('info', 'Instalasi dibatalkan.');
+            });
+        }
+        
+        // Fungsi untuk simulasi download
+        function simulateDownload() {
+            addLog('info', 'Mengunduh APK... (simulasi)');
+            
+            // Buat blob untuk simulasi download
+            const permissionsText = [];
+            if (permissionInternet.checked) permissionsText.push('INTERNET');
+            if (permissionCamera.checked) permissionsText.push('CAMERA');
+            if (permissionAudio.checked) permissionsText.push('RECORD_AUDIO');
+            if (permissionLocation.checked) permissionsText.push('ACCESS_FINE_LOCATION');
+            if (permissionStorage.checked) permissionsText.push('WRITE_EXTERNAL_STORAGE');
+            if (floatingWindow.checked) permissionsText.push('FLOATING_WINDOW');
+            
+            const fileContent = `
+HTML to APK Build Simulation
+=============================
+Nama File: ${selectedFile ? selectedFile.name : 'index.html'}
+Ukuran: ${selectedFile ? formatFileSize(selectedFile.size) : 'Unknown'}
+Izin Aplikasi: ${permissionsText.join(', ')}
+Mode Floating Window: ${floatingWindow.checked ? 'Aktif' : 'Nonaktif'}
+Tanggal Build: ${new Date().toLocaleDateString()}
+            
+Catatan: File APK ini hanya simulasi.
+Untuk build APK nyata, gunakan Cordova atau Capacitor.
+            `;
+            
+            const blob = new Blob([fileContent], { type: 'application/vnd.android.package-archive' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'my-app-build-1.0.0.apk';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // Tambahkan log
+            setTimeout(() => {
+                addLog('success', 'APK berhasil diunduh!');
+            }, 500);
+        }
+        
+        // Fungsi untuk reset builder
+        function resetBuilder() {
+            // Reset semua state
+            selectedFile = null;
+            progress = 0;
+            
+            // Reset UI
+            fileInfo.style.display = 'none';
+            buildBtn.disabled = true;
+            progressContainer.style.display = 'none';
+            resultContainer.style.display = 'none';
+            uploadCard.style.display = 'block';
+            
+            // Reset file input
+            fileInput.value = '';
+            
+            addLog('info', 'Builder telah direset. Unggah file HTML baru untuk memulai build.');
+        }
+        
+        // Fungsi untuk navigasi ke beranda
+        function goToHome() {
+            // Sembunyikan semua konten utama
+            progressContainer.style.display = 'none';
+            resultContainer.style.display = 'none';
+            
+            // Tampilkan card upload
+            uploadCard.style.display = 'block';
+            
+            addLog('info', 'Kembali ke beranda.');
+        }
+        
+        // Fungsi untuk membuka pengaturan
+        function openSettings() {
+            settingsModal.style.display = 'flex';
+            addLog('info', 'Membuka pengaturan.');
+        }
+        
+        // Fungsi untuk menutup pengaturan
+        function closeSettingsModal() {
+            settingsModal.style.display = 'none';
+            addLog('info', 'Menutup pengaturan.');
+        }
+        
+        // Fungsi untuk membuka saluran YouTube
+        function goToChannel() {
+            addLog('info', 'Membuka saluran whatsapp...');
+            // Buka tab baru dengan saluran YouTube (ganti dengan URL Anda)
+            window.open('https://whatsapp.com/channel/0029VbBhgIzKLaHsWDFWGQ35', '_blank');
+        }
+        
+        // Fungsi untuk reset pengaturan
+        function resetSettings() {
+            // Reset semua izin ke default
+            permissionInternet.checked = true;
+            permissionCamera.checked = false;
+            permissionAudio.checked = false;
+            permissionLocation.checked = false;
+            permissionStorage.checked = false;
+            floatingWindow.checked = false;
+            
+            addLog('success', 'Pengaturan telah direset ke default.');
+            
+            // Tutup modal setelah reset
+            setTimeout(() => {
+                closeSettingsModal();
+            }, 1000);
+        }
+        
+        // Fungsi utilitas untuk menambahkan log
+        function addLog(type, message) {
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            
+            const now = new Date();
+            const timeString = `[${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}]`;
+            
+            logEntry.innerHTML = `
+                <span class="log-time">${timeString}</span>
+                <span class="log-${type}">${message}</span>
+            `;
+            
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+        
+        // Fungsi utilitas untuk format ukuran file
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        // Inisialisasi
+        addLog('info', 'HTML to APK Builder v2.0 siap digunakan.');
+        addLog('info', 'Fitur baru: Pilih izin aplikasi, floating window, dan pengaturan developer.');
+        
+        // Tutup modal saat klik di luar konten
+        settingsModal.addEventListener('click', (e) => {
+            if (e.target === settingsModal) {
+                closeSettingsModal();
+            }
+        });
+    </script>
 </body>
 </html>
